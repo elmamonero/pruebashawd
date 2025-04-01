@@ -13,12 +13,12 @@ const require = createRequire(__dirname);
 const { name, description, author, version } = require(join(__dirname, './package.json'));
 const { say } = cfonts;
 const rl = createInterface(process.stdin, process.stdout);
-say('Shadow\nUltra', {
+say('Pantheon\nBot', {
 font: 'chrome',
 align: 'center',
 gradient: ['red', 'magenta']
 });
-say(`Created by Criss Escobar`, {
+say(`Created by Pantheon`, {
 font: 'console',
 align: 'center',
 gradient: ['red', 'magenta']
