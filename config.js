@@ -8,27 +8,27 @@ import axios from 'axios'
 import moment from 'moment-timezone' 
 
 global.owner = [
-   ['51927238856', 'Cristian Escobar', true],
-   ['51965911060', 'Shadow', true],
-   ['51990841568', 'Colaborador', false]
+   ['584262668729', 'Pantheon', true]
 ]
 
 global.creadorbot = [
-   ['51927238856', 'Cristian Escobar', true]
+   ['584262668729', 'Cristian Escobar', true]
 ]
 
-global.mods = ['51990841568', '51965911060']
-global.prems = ['51965911060']
+global.mods = ['584262668729', '584262668729']
+global.prems = ['584262668729']
 
 
-global.packname = 'ShadowUtra'
-global.botname = '(✦◠‿◠)ShadowBot-MD'
-global.wm = '⏤͟͟͞͞⋆⬪࣪ꥈ☕★ ׄ ꒱ Shadow ୭'
-global.author = 'By Criss'
-global.dev = '© Powered by Moon Force Team'
+global.packname = '【✧】Pantheon-Bot ❖'
+global.botname = 'Pantheon-Bot'
+global.wm = 'Pantheon-Bot'
+global.author = 'Pantheon-Bot'
+global.dev = 'Pantheon-Bot'
 global.errorm = 'Error: ${error.message}'
-global.nombrebot = 'Shadow Bot - MD'
-global.textbot = `「 SHADOW BOT MD 」`
+global.nombrebot = 'Pantheon Bot'
+global.textbot = `「 🏛 Pantheon - Bot 🏛 」`
+global.espera = '✰ 𝐄𝐬𝐩𝐞𝐫𝐚 𝐔𝐧 𝐌𝐨𝐦𝐞𝐧𝐭𝐨...'
+global.publi = '✰𝐒𝐢𝐠𝐮𝐞 𝐄𝐥 𝐂𝐚𝐧𝐚𝐥👇'
 global.vs = '3.0.0'
 
 
