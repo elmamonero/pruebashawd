@@ -5,7 +5,7 @@ handler.all = async function(m) {
 const chat = global.db.data.chats[m.chat];
 if (chat.isBaneed) return
 if (/^bot$/i.test(m.text)) {
-conn.reply(m.chat, `🌠 ¡Hola! Soy Shadow, en que puedo ayudarte hoy?\n\n✰ Usa *.menu* para ver mis comandos.`, m, rcanal, )
+conn.reply(m.chat, `🌠 ¡Hola! Soy Pantheon, en que puedo ayudarte hoy?\n\n✰ Usa *.menu* para ver mis comandos.`, m, rcanal, )
 }
 
 if (/^English$/i.test(m.text)) {
@@ -21,7 +21,7 @@ conn.reply(m.chat, `*Escucha gil de mrd ni se te ocurra enviar ese tipo de conte
 }
 
 if (/^Bot Perzonalizado Simple/i.test(m.text)) {
-conn.reply(m.chat, `*Claro, El Bot Perzonalizado Simple Cuesta 30so Con Server Incluído y comisión, trae comandos básicos.[🌠]*`, m, rcanal, )
+conn.reply(m.chat, `*Claro, El Bot Perzonalizado Cuesta 15$ Con Server Incluído.[🌠]*`, m, rcanal, )
 }
 
 if (/^Bot de mrd/i.test(m.text)) {
@@ -31,8 +31,7 @@ conn.reply(m.chat, `*Ya te dieron De Comer?🥵🍆*`, m, rcanal, )
 if (/^Vendes Bot|Venden Bot|Quiero Comprar Bot|Quiero Comprar un bot/i.test(m.text)) {
 conn.reply(m.chat, `*Claro,¡Vendemos Los Mejores Bots!*
 Tenemos:
-•Bot Perzonalizado Plus o normal 
-•Bot Propio
+•Bot Perzonalizado
 •Bot Para Grupo 
 > *Consulta Los Precios*`, m, rcanal, )
 }
@@ -41,10 +40,6 @@ if (/^Bot en decadencia/i.test(m.text)) {
 conn.reply(m.chat, `*Tu Mamá we 🍆🥵*`, m, rcanal, )
 }
 
-if (/^Crow$/i.test(m.text)) {
-conn.reply(m.chat, `*Hola Eres Fan De* *CrowBot o Brawl Stars*
-*Entonces Sigue El Canal Oficial!*\n> https://whatsapp.com/channel/0029Vb1AFK6HbFV9kaB3b13\n\n*O Puedes Ir Al Sitio Web Oficial De SB!*\n> https://shadow.vercel.app/\n\n*Gracias por utilizar Shadow* `, m, rcanal, )
-}
 
 if (/^reglasgp|.reglasgp$/i.test(m.text)) {
 conn.reply(m.chat, `**R꙰EGLAS DEL GRUP❍ꪜ*
@@ -71,7 +66,7 @@ conn.reply(m.chat, `**R꙰EGLAS DEL GRUP❍ꪜ*
 █║║██║║██║║██║║██║║█
 ✧･ﾟ: *✧･Atte.
 
-☆ ፝͜★ৡ͜͡✞ *Shadow Bot* ➵͡☠️⃪̸ੵ᷒ᰰ↱
+☆ ፝͜★ৡ͜͡✞ *Pantheon Bot* ➵͡☠️⃪̸ੵ᷒ᰰ↱
 
 ✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*`, m, rcanal, )
 }
