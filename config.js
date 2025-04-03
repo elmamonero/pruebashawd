@@ -12,7 +12,7 @@ global.owner = [
 ]
 
 global.creadorbot = [
-   ['584262668729', 'Cristian Escobar', true]
+   ['584262668729', 'Pantheon Bot', true]
 ]
 
 global.mods = ['584262668729', '584262668729']
