@@ -6,7 +6,7 @@
     const chat = global.db.data.chats[m.chat];
     const bot = global.db.data.settings[this.user.jid] || {};
     if (bot.antiPrivate && !isOwner && !isROwner && !isMods) {
-      await m.reply(`*[ ℹ️ ] Hola, @${m.sender.split`@`[0]} Está prohibido escribir al chat privado del bot, por lo cual serás blockeado.`, false, {mentions: [m.sender]});
+      await m.reply(`*[ ℹ️ ] Hola, @${m.sender.split`@`[0]} Está prohibido escribir al chat privado del bot, por lo cual serás bloqueado.`, false, {mentions: [m.sender]});
       await this.updateBlockStatus(m.chat, 'block');
     }
     return !1;
