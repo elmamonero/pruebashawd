@@ -20,7 +20,7 @@ let result = json.results[0];
 
 let txt = `*Nombre:* ${result.name}\n*Owner:* ${result.creator}\n*Estrellas:* ${result.stars}\n*Bifurcaciones:* ${result.forks}\n*Descripcion:* ${result.description}\n*Creado:* ${result.createdAt}\n*Link:* ${result.cloneUrl}`;
 
-let img = 'https://files.catbox.moe/9vlgt5.jpg';
+let img = 'https://i.ibb.co/v4Yx9Q4N/file.jpg';
 
 conn.sendMessage(m.chat, { image: { url: img }, caption: txt }, { quoted: fkontak });
 
