@@ -6,23 +6,23 @@ import { join } from 'path'
 
 let handler = async (m, { conn, usedPrefix, usedPrefix: _p, __dirname, text, command }) => {
     try {
-    let { exp, diamantes, level, role } = global.db.data.users[m.sender]
-    let { min, xp, max } = xpRange(level, global.multiplier)
-    let name = await conn.getName(m.sender)
-    exp = exp || 'Desconocida';
-    role = role || 'Aldeano';
+        let { exp, diamantes, level, role } = global.db.data.users[m.sender]
+        let { min, xp, max } = xpRange(level, global.multiplier)
+        let name = await conn.getName(m.sender)
+        exp = exp || 'Desconocida';
+        role = role || 'Aldeano';
 
         const _uptime = process.uptime() * 1000;
-    const uptime = clockString(_uptime);
+        const uptime = clockString(_uptime);
 
-    let totalreg = Object.keys(global.db.data.users).length
-    let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length
+        let totalreg = Object.keys(global.db.data.users).length
+        let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length
 
         await m.react('🍪')
         let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
-        let perfil = await conn.profilePictureUrl(who, 'image').catch(_ => 'https://files.catbox.moe/pk3xxk.jpg')
+        let perfil = await conn.profilePictureUrl(who, 'image').catch(_ => 'https://i.ibb.co/v4Yx9Q4N/file.jpg')
 
-        const videoUrl = 'https://files.catbox.moe/7ha109.mp4' // URL fija del video
+        const imageUrl = 'https://i.ibb.co/v4Yx9Q4N/file.jpg' // URL de la imagen que quieres enviar
 
         let menu = `
 ㅤㅤㅤ⩁꯭ ͡  ͡ᩚ꯭ ꯭⩁ㅤㅤ𑁯🤍ᰍㅤㅤ⩁꯭ ͡  ͡ᩚ꯭ ꯭⩁
@@ -300,21 +300,19 @@ ${readMore}
 `.trim()
 
         await conn.sendMessage(m.chat, {
-            video: { url: videoUrl }, // Video fijo
+            image: { url: imageUrl }, // Enviar imagen en lugar de video
             caption: menu,
             contextInfo: {
                 mentionedJid: [m.sender],
                 isForwarded: true,
                 forwardingScore: 999,
                 externalAdReply: {
-                    title: '⏤͟͞ू⃪ ፝͜⁞Sʜᴀᴅᴏᴡ✰⃔࿐\nNᴜᴇᴠᴀ Vᴇʀsɪᴏɴ Uʟᴛʀᴀ 💫',
+                    title: '*Pantheon Bot*',
                     thumbnailUrl: perfil,
                     mediaType: 1,
                     renderLargerThumbnail: false,
                 },
             },
-            gifPlayback: true,
-            gifAttribution: 0
         }, { quoted: null })
     } catch (e) {
         await m.reply(`*[ ℹ️ ] Ocurrió un error al enviar el menú.*\n\n${e}`)
