@@ -44,7 +44,7 @@ m.reply(`*[ ✅ ] Pantheon se unió correctamente al grupo.*\n*¡Disfruta del Bo
             expired = Math.min(999, Math.max(1, isNumber(expired) ? parseInt(expired) : 0))
             let chats = global.db.data.chats[res] || (global.db.data.chats[res] = {})
             chats.expired = +new Date() + expired * 1000 * 60 * 60 * 24
-            m.reply(`*[ ⌛ ] Shadow permanecerá en el grupo durante \`${expired}\` días.*`)
+            m.reply(`*[ ⌛ ] Pantheon permanecerá en el grupo durante \`${expired}\` días.*`)
         }
     } catch {
         return m.reply(`*[ ❌ ] Ocurrió un error al otrar al grupo.*`) 
