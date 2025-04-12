@@ -12,7 +12,7 @@ const handler = async (m, { conn, usedPrefix, text, isPrems }) => {
 
     〔 👑 𝙁𝙍𝙀𝙀 𝙁𝙄𝙍𝙀 👑 〕
     ╭───── • 🌟 • ─────╮
-    *├❧ 🎫 ${usedPrefix}doanarsala*
+    *├❧ 🎫 ${usedPrefix}donarsala*
     *├❧ 🎟️ ${usedPrefix}sorteo*
     *├❧ 🗼 ${usedPrefix}bermuda*
     *├❧ 🏜️ ${usedPrefix}kalahari*
