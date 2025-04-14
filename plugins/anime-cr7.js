@@ -19,7 +19,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
         m.chat,
         {
             image: { url: ronaldo },
-            caption: "*CR7*",
+            caption: "*CRa7*",
             buttons: buttons,
             viewOnce: true
         },
