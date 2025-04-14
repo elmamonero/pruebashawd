@@ -510,27 +510,22 @@ global.dfail = (type, m, conn) => {
 let user2 = m.pushName || 'Anónimo'
 
 const msg = {
-  rowner: '```🌙 Esta función solo está disponible para el creador del bot.```',
-  owner: '```🌙 Solo el propietario puede usar esta opción.```',
-  mods: '```🌙 Este comando está reservado para los moderadores.```',
-  premium: '```🌙 Función exclusiva para usuarios premium.```',
-  group: '```🌙 Este comando solo puede ejecutarse en grupos.```',
-  private: '```🌙 Este comando está diseñado para chats privados.```',
-  admin: '```🌙 Solo los administradores del grupo pueden ejecutar esto.```',
-  botAdmin: '```🌙 Necesito permisos de administrador para hacer eso.```',
-  unreg: `\`\`\`🌙 No estás registrado(a), por favor regístrate para usar esta función.\`\`\`\n\n*#reg <nombre.edad>*\n\n> *\`Ejemplo:\`*\n> .reg ${user2}.18`,
-  restrict: '```🌙 Esta función está actualmente desactivada.```'
+rowner: '```☕ Es𝗍ᥲ 𝖿ᥙᥒᥴі᥆́ᥒ s᥆ᥣ᥆ ⍴ᥙᥱძᥱ sᥱr ᥙ𝗍іᥣіzᥲძᥲ ⍴᥆r ᥱᥣ ᥴrᥱᥲძ᥆r ძᥱᥣ ᑲ᥆𝗍.```', 
+owner: '```☕ Es𝗍ᥲ 𝖿ᥙᥒᥴі᥆́ᥒ s᥆ᥣ᥆ sᥱ ⍴ᥙᥱძᥱ ᥙsᥲr ⍴᥆r ᥱᥣ ⍴r᥆⍴іᥱ𝗍ᥲrі᥆ ძᥱᥣ ᑲ᥆𝗍.```', 
+mods: '```☕ Es𝗍ᥱ ᥴ᥆mᥲᥒძ᥆ s᥆ᥣ᥆ sᥱ ⍴ᥙᥱძᥱ ᥙsᥲr ⍴᥆r ᥣ᥆s m᥆ძᥱrᥲძ᥆rᥱs ძᥱᥣ ᑲ᥆𝗍.```', 
+premium: '```☕ Es𝗍ᥱ ᥴ᥆mᥲᥒძ᥆ ⍴ᥙᥱძᥱ sᥱr ᥙ𝗍іᥣіzᥲძ᥆ ⍴᥆r ᥙsᥙᥲrі᥆s ⍴rᥱmіᥙm.```', 
+group: '```☕ Es𝗍ᥱ ᥴ᥆mᥲᥒძ᥆ s᥆ᥣ᥆ ⍴ᥙᥱძᥱ sᥱr ᥱȷᥱᥴᥙ𝗍ᥲძ᥆ ᥱᥒ grᥙ⍴᥆s.```', 
+private: '```☕ Es𝗍ᥲ 𝖿ᥙᥒᥴі᥆́ᥒ s᥆ᥣ᥆ ⍴ᥙᥱძᥱ sᥱr ᥱȷᥱᥴᥙ𝗍ᥲძᥲ ᥱᥒ mі ᥴһᥲ𝗍 ⍴rі᥎ᥲძ᥆.*', 
+admin: '```☕ Es𝗍ᥱ ᥴ᥆mᥲᥒძ᥆ s᥆ᥣ᥆ ᥱs ⍴ᥲrᥲ ᥲძmіᥒs ძᥱᥣ grᥙ⍴᥆!!```', 
+botAdmin: '```☕ Pᥲrᥲ ⍴᥆ძᥱr ᥙsᥲr ᥱs𝗍ᥱ ᥴ᥆mᥲᥒძ᥆ ᥱs ᥒᥱᥴᥱsᥲrі᥆ 𝗊ᥙᥱ ᥡ᥆ sᥱᥲ ᥲძmіᥒ!!```',
+unreg: `\`\`\`☕ N᥆ 𝗍ᥱ ᥱᥒᥴᥙᥱᥒ𝗍rᥲs rᥱgіs𝗍rᥲძ᥆(ᥲ), rᥱgіs𝗍rᥱsᥱ ⍴ᥲrᥲ ᥙsᥲr ᥱs𝗍ᥲ 𝖿ᥙᥒᥴі᥆́ᥒ.\`\`\`\n\n*#reg <nombre.edad>*\n\n> *\`Ejemplo:\`*\n> .reg ${user2}.18`,
+restrict: '```☕ Es𝗍ᥲ 𝖿ᥙᥒᥴі᥆́ᥒ ᥱs𝗍ᥲ́ ძᥱsᥲᥴ𝗍і᥎ᥲძᥲ.```'
 }[type];
+if (msg) return conn.reply(m.chat, msg, m, rcanal).then(_ => m.react('✖️'))}
 
-if (msg) {
-  return conn.reply(m.chat, msg, m, rcanal).then(_ => m.react('✖️'));
-}
-
-let file = global.__filename(import.meta.url, true);
+let file = global.__filename(import.meta.url, true)
 watchFile(file, async () => {
-  unwatchFile(file);
-  console.log(chalk.magenta("Se actualizó 'handler.js'"));
-  if (global.reloadHandler) {
-    console.log(await global.reloadHandler());
-  }
-});
+    unwatchFile(file)
+    console.log(chalk.magenta("Se actualizo 'handler.js'"))
+    if (global.reloadHandler) console.log(await global.reloadHandler())
+})
