@@ -12,10 +12,9 @@ let handler = async (m, { conn, usedPrefix, command }) => {
             buttonId: `${usedPrefix + command}`,
             buttonText: { displayText: "⚽ Ver más" },
             type: 1
-        }
-        
-    a
-a
+        } 
+    ];
+    
     await conn.sendMessage(
         m.chat,
         {
