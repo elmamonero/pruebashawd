@@ -521,12 +521,16 @@ const msg = {
   unreg: `\`\`\`🌙 No estás registrado(a), por favor regístrate para usar esta función.\`\`\`\n\n*#reg <nombre.edad>*\n\n> *\`Ejemplo:\`*\n> .reg ${user2}.18`,
   restrict: '```🌙 Esta función está actualmente desactivada.```'
 }[type];
-if (msg) return conn.reply(m.chat, msg, m, rcanal).then(_ => m.react('✖️'));
 
+if (msg) {
+  return conn.reply(m.chat, msg, m, rcanal).then(_ => m.react('✖️'));
+}
 
-let file = global.__filename(import.meta.url, true)
+let file = global.__filename(import.meta.url, true);
 watchFile(file, async () => {
-    unwatchFile(file)
-    console.log(chalk.magenta("Se actualizo 'handler.js'"))
-    if (global.reloadHandler) console.log(await global.reloadHandler())
-})
+  unwatchFile(file);
+  console.log(chalk.magenta("Se actualizó 'handler.js'"));
+  if (global.reloadHandler) {
+    console.log(await global.reloadHandler());
+  }
+});
