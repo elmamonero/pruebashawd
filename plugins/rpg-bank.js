@@ -4,7 +4,7 @@
 
 import fetch from 'node-fetch'
 import db from '../lib/database.js'
-let img = 'https://files.catbox.moe/x81ait.jpg'
+let img = 'https://files.catbox.moe/kmfqee.jpg'
 let handler = async (m, {conn, usedPrefix}) => {
    let who = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : m.sender
    if (who == conn.user.jid) return m.react('✖️')
