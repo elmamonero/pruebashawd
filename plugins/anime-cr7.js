@@ -14,7 +14,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
             type: 1
         }
         
-    ];
+    a
 a
     await conn.sendMessage(
         m.chat,
