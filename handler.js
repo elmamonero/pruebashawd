@@ -87,6 +87,10 @@ export async function handler(chatUpdate) {
                     chat.isBanned = false
                 if (!('welcome' in chat))
                     chat.welcome = false
+                if (!('sWelcome' in chat))
+                    chat.sWelcome = ''
+                if (!('sBye' in chat))
+                    chat.sBye = ''
                 if (!('audios' in chat))
                     chat.audios = false
                 if (!('detect' in chat))
@@ -119,6 +123,8 @@ export async function handler(chatUpdate) {
                 global.db.data.chats[m.chat] = {
                     isBanned: false,
                     welcome: false,
+                    sWelcome: '',
+                    sBye: '',
                     delete: false,
                     audios: false,
                     detect: true,
@@ -290,7 +296,7 @@ if (name != 'owner-unbanchat.js' && name != 'owner-exec.js' && name != 'owner-ex
 if (m.text && user.banned && !isROwner) {
 if (user.antispam > 2) return
 m.reply(`*🚫 Está baneado(a), no puede usar los comandos de este bot!*\n\n${user.bannedReason ? `\n💌 *Motivo:* 
-${user.bannedReason}` : '💌 *Motivo:* Sin Especificar'}\n\n⚠️ *Si cree que es un error contacte con mi creador:*\n- Wa.me/584262668729`)
+${user.bannedReason}` : '💌 *Motivo:* Sin Especificar'}\n\n⚠️ *Si cree que es un error contacte con mi creador:*\n- Wa.me/51927238856`)
 user.antispam++        
 return
 }
@@ -504,16 +510,16 @@ global.dfail = (type, m, conn) => {
 let user2 = m.pushName || 'Anónimo'
 
 const msg = {
-rowner: '*[ ℹ️ ] Esta función solo puede ser usada por mi Creador.*', 
-owner: '*[ ℹ️ ] Esta función solo puede ser usada por mi desarrollador.*', 
-mods: '*[ ℹ️ ] Esta función solo puede ser usada los moderadores del bot.*', 
-premium: '*[ ℹ️ ] Esta función solo es para usuarios Premium.*', 
-group: '*[ ℹ️ ] Esta funcion solo puede ser ejecutada en grupos.*', 
-private: '*[ ℹ️ ] Esta función solo puede ser usada en chat privado.*', 
-admin: '*[ ℹ️ ] Este comando solo puede ser usado por admins.*', 
-botAdmin: '*[ ℹ️ ] Para usar esta función debo ser admin.*',
-unreg: `*[ ℹ️ ] No te encuentras registrado, registrese para usar esta función*\n\n*.reg <nombre.edad>*\n\n*[ 💡 ] Ejemplo:*\n> .reg ${user2}.18`,
-restrict: '*[ ℹ️ ] Esta característica esta desactivada.*'
+rowner: '```☕ Es𝗍ᥲ 𝖿ᥙᥒᥴі᥆́ᥒ s᥆ᥣ᥆ ⍴ᥙᥱძᥱ sᥱr ᥙ𝗍іᥣіzᥲძᥲ ⍴᥆r ᥱᥣ ᥴrᥱᥲძ᥆r ძᥱᥣ ᑲ᥆𝗍.```', 
+owner: '```☕ Es𝗍ᥲ 𝖿ᥙᥒᥴі᥆́ᥒ s᥆ᥣ᥆ sᥱ ⍴ᥙᥱძᥱ ᥙsᥲr ⍴᥆r ᥱᥣ ⍴r᥆⍴іᥱ𝗍ᥲrі᥆ ძᥱᥣ ᑲ᥆𝗍.```', 
+mods: '```☕ Es𝗍ᥱ ᥴ᥆mᥲᥒძ᥆ s᥆ᥣ᥆ sᥱ ⍴ᥙᥱძᥱ ᥙsᥲr ⍴᥆r ᥣ᥆s m᥆ძᥱrᥲძ᥆rᥱs ძᥱᥣ ᑲ᥆𝗍.```', 
+premium: '```☕ Es𝗍ᥱ ᥴ᥆mᥲᥒძ᥆ ⍴ᥙᥱძᥱ sᥱr ᥙ𝗍іᥣіzᥲძ᥆ ⍴᥆r ᥙsᥙᥲrі᥆s ⍴rᥱmіᥙm.```', 
+group: '```☕ Es𝗍ᥱ ᥴ᥆mᥲᥒძ᥆ s᥆ᥣ᥆ ⍴ᥙᥱძᥱ sᥱr ᥱȷᥱᥴᥙ𝗍ᥲძ᥆ ᥱᥒ grᥙ⍴᥆s.```', 
+private: '```☕ Es𝗍ᥲ 𝖿ᥙᥒᥴі᥆́ᥒ s᥆ᥣ᥆ ⍴ᥙᥱძᥱ sᥱr ᥱȷᥱᥴᥙ𝗍ᥲძᥲ ᥱᥒ mі ᥴһᥲ𝗍 ⍴rі᥎ᥲძ᥆.*', 
+admin: '```☕ Es𝗍ᥱ ᥴ᥆mᥲᥒძ᥆ s᥆ᥣ᥆ ᥱs ⍴ᥲrᥲ ᥲძmіᥒs ძᥱᥣ grᥙ⍴᥆!!```', 
+botAdmin: '```☕ Pᥲrᥲ ⍴᥆ძᥱr ᥙsᥲr ᥱs𝗍ᥱ ᥴ᥆mᥲᥒძ᥆ ᥱs ᥒᥱᥴᥱsᥲrі᥆ 𝗊ᥙᥱ ᥡ᥆ sᥱᥲ ᥲძmіᥒ!!```',
+unreg: `\`\`\`☕ N᥆ 𝗍ᥱ ᥱᥒᥴᥙᥱᥒ𝗍rᥲs rᥱgіs𝗍rᥲძ᥆(ᥲ), rᥱgіs𝗍rᥱsᥱ ⍴ᥲrᥲ ᥙsᥲr ᥱs𝗍ᥲ 𝖿ᥙᥒᥴі᥆́ᥒ.\`\`\`\n\n*#reg <nombre.edad>*\n\n> *\`Ejemplo:\`*\n> .reg ${user2}.18`,
+restrict: '```☕ Es𝗍ᥲ 𝖿ᥙᥒᥴі᥆́ᥒ ᥱs𝗍ᥲ́ ძᥱsᥲᥴ𝗍і᥎ᥲძᥲ.```'
 }[type];
 if (msg) return conn.reply(m.chat, msg, m, rcanal).then(_ => m.react('✖️'))}
 
