@@ -5,7 +5,7 @@ import qs from 'qs';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 
-  if (!text) throw m.reply(`*[ 🎧 ] Hace falta el título del audio de AppleMusic.*\n\n*[ 💡 ] Ejemplo:* ${usedPrefix + command} Mi Kryptonita - Doble ONE`);
+  if (!text) throw m.reply(`*📀 Por favor, ingresa el nombre de la música que desea descargar de Apple Music*\n> *\`Ejemplo:\`* ${usedPrefix + command} Grupo 5 - Motor & Motivo`);
 
 
 const appleMusic = {
@@ -159,12 +159,12 @@ conn.sendMessage(m.chat, { react: { text: "🕒", key: m.key } });
 //let dataos = await appleMusic.search(text)
 let dataos = await appleMusic.search(text);
 if (!dataos || dataos.length === 0) {
-  return m.reply('*[ ❌ ] No se encontraron resultados en Apple Music.*');
+  return m.reply('*❌ No se encontraron resultados en Apple Music.*');
 }
 let dataos2 = await appledown.download(dataos[0].link);
 let { name, albumname, artist, url, thumb, duration, token, download } = dataos2;
 
-m.reply(`*${name} - ${artist}* (${duration})\n\n${url}\n\n> *[ ℹ️ ]* sᥱ ᥱs𝗍ᥲ́ ᥱᥒ᥎іᥲᥒძ᥆ ᥱᥣ ᥲᥙძі᥆ ᥱs⍴ᥱrᥱ ᥙᥒ m᥆mᥱᥒ𝗍᥆...\n> sі ᥒ᥆ sᥱ ᥱᥒ᥎іᥲ ⍴rᥙᥱᑲᥱ ᥴ᥆ᥒ ᥱᥣ ᥴ᥆mᥲᥒძ᥆ *aplay2*`);
+m.reply(`\`\`\`◜AppleMusic - Download◞\`\`\`\n\n≡ *🌴 \`Title:\`* ${name}\n≡ *🌿 \`Artist:\`* ${artist}\n≡ *⌛ \`Duration:\`* ${duration}\n≡ *🍃 \`Url:\`* ${url}\n\n> ☁️ Se está procesando el audio, aguarde un momento.`);
       const doc = {
       audio: { url: download },
       mimetype: 'audio/mp4',
@@ -181,11 +181,10 @@ m.reply(`*${name} - ${artist}* (${duration})\n\n${url}\n\n> *[ ℹ️ ]* sᥱ �
       }
     };
     await conn.sendMessage(m.chat, doc, { quoted: m });
-    await conn.sendMessage(m.chat, { react: { text: '🎵', key: m.key }})
+    await conn.sendMessage(m.chat, { react: { text: '✅', key: m.key }})
 }
 handler.help = ['aplay'];
 handler.tags = ['descargas'];
 handler.command = /^(aplay|applemusic|applemusicplay)$/i;
-handler.register = true;
 
 export default handler;
