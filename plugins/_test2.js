@@ -10,13 +10,15 @@ const handler = async (m, { conn, usedPrefix, isPrems }) => {
     const _uptime = process.uptime() * 1000;
     const uptime = clockString(_uptime);
 
-    const user = global.db.data.users[m.sender];
-    const { money, joincount, exp, limit, level, role } = user;
+    const user = global.db.data.users[m.sender] || {};
+    const { money = 0, joincount = 0, exp = 0, limit = 0, level = 0, role = '' } = user;
 
-    let totalreg = Object.keys(global.db.data.users).length
-    let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length
+    let totalreg = Object.keys(global.db.data.users || {}).length;
+    let rtotalreg = Object.values(global.db.data.users || {}).filter(user => user.registered).length;
 
     const taguser = '@' + m.sender.split('@s.whatsapp.net')[0];
+
+    const botname = 'Pantheon Bot';
 
     const text = `
 ︵᷼     ⿻ *PANTHEON* ࣪   ࣭  ࣪ *WA BOT* ࣭  🐈  ࣪   ࣭
@@ -268,7 +270,7 @@ ${readMore}
         isForwarded: true,
         forwardingScore: 999,
         externalAdReply: {
-          title: `ss`,
+          title: '',
           body: 'Pantheon Bot',
           thumbnail: await (await fetch(img)).buffer(),
           sourceUrl: insta,
@@ -288,11 +290,12 @@ handler.fail = null;
 
 export default handler;
 
-const more = String.fromCharCode(8206)
-const readMore = more.repeat(4001)
+const more = String.fromCharCode(8206);
+const readMore = more.repeat(4001);
+
 function clockString(ms) {
   const h = isNaN(ms) ? '--' : Math.floor(ms / 3600000);
   const m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60;
   const s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60;
-  return [h, m, s].map((v) => v.toString().padStart(2, 0)).join(':');
+  return [h, m, s].map((v) => v.toString().padStart(2, '0')).join(':');
 }
