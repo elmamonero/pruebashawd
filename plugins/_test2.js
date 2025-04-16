@@ -19,17 +19,17 @@ const handler = async (m, { conn, usedPrefix, isPrems }) => {
     const taguser = '@' + m.sender.split('@s.whatsapp.net')[0];
 
     const text = `
-︵᷼     ⿻ *Mᴏʀᴄʜɪ* ࣪   ࣭  ࣪ *WA BOT* ࣭  🐈  ࣪   ࣭
+︵᷼     ⿻ *PANTHEON* ࣪   ࣭  ࣪ *WA BOT* ࣭  🐈  ࣪   ࣭
 ✿ *Hᴏʟᴀ ${taguser}*\n*${saludo}*
 
 > ꒰꛱ ͜Desarrollado por *Pantheon* +584262668729
 
-*𓈒𓏸🌴 \`Bot Name:\`* ${botname}
-*𓈒𓏸🌵 \`Activo:\`* ${uptime}
-*𓈒𓏸🍃 \`Usuarios:\`* ${totalreg}
-*𓈒𓏸🌿 \`Versión:\`* 1.0.0
+𓈒𓏸🌺 `Bot Name:` ${botname}  
+𓈒𓏸🌷 `Activo:` ${uptime}  
+𓈒𓏸🍂 `Usuarios:` ${totalreg}  
+𓈒𓏸🌸 `Versión:` 1.0.0  
 
-> 😸 Si encuentra un comando con errores no dudes en reportarlo con el Creador
+> 😸 Si encuentras un comando con errores no dudes en reportarlo con el Creador
 ${readMore}
 ↷✦; *\`MENÚS\`* ❞ 🌷︵᷼ 
 ⠞🌷੭‎ ${usedPrefix}menunsfw
@@ -268,7 +268,7 @@ ${readMore}
         isForwarded: true,
         forwardingScore: 999,
         externalAdReply: {
-          title: `${await conn.getName(m.sender)}, Thank for using Morchiyara, you can follow me on Instagram by clicking here`,
+          title: ``,
           body: 'Pantheon Bot',
           thumbnail: await (await fetch(img)).buffer(),
           sourceUrl: insta,
