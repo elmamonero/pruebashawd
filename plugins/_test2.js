@@ -268,7 +268,7 @@ ${readMore}
         isForwarded: true,
         forwardingScore: 999,
         externalAdReply: {
-          title: ``,
+          title: `ss`,
           body: 'Pantheon Bot',
           thumbnail: await (await fetch(img)).buffer(),
           sourceUrl: insta,
