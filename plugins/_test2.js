@@ -26,7 +26,7 @@ const handler = async (m, { conn, usedPrefix, isPrems }) => {
 
 > ꒰꛱ ͜Desarrollado por *Pantheon* +584262668729
 
-𓏸🌺 \`Bot Name:\` ${botname}  
+𓏸🌺 \` Bot Name:\` ${botname}  
 𓈒𓏸🌷 \`Activo:\` ${uptime}  
 𓈒𓏸🍂 \`Usuarios:\` ${totalreg}  
 𓈒𓏸🌸 \`Versión:\` 1.0.0  
