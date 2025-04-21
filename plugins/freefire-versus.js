@@ -171,9 +171,8 @@ const handler = async (m, { text, conn, args, usedPrefix, command }) => {
         iconos = ['❓'];
         iconos2 = ['❔'];
         break;
-}
+    }
   
-
     const message = `ㅤㅤㅤ *\`${titulo}\`*  
 
 🕹꒱ *Reglas:* ${modalidad}  
