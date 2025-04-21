@@ -22,10 +22,10 @@ let handler = async (m, { conn, usedPrefix, text, args, command }) => {
         contextInfo: {
             externalAdReply: {
                 showAdAttribution: true,
-                title: 'һ᥆ᥣᥲ s᥆ᥡ ᥱᥣ ᥴrᥱᥲძ᥆r ძᥱ sһᥲძ᥆ᥕ ᑲ᥆𝗍',
+                title: '¡Hola! ʏᴏ sᴏʏ ᴇʟ ᴄʀᴇᴀᴅᴏʀ ᴅᴇ Pᴀɴᴛʜᴇᴏɴ Bᴏᴛ!',
                 body: dev,
-                thumbnailUrl: 'https://files.catbox.moe/8an9fs.jpg',
-                sourceUrl: 'https://wa.me/51927238856?text=Vengo+Del+Comando+.owner',
+                thumbnailUrl: 'https://files.catbox.moe/kmfqee.jpg',
+                sourceUrl: 'https://wa.me/584262668729?text=Vengo+Del+Comando+.owner',
                 mediaType: 1,
                 renderLargerThumbnail: true
             }
