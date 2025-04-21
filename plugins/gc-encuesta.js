@@ -1,34 +1,32 @@
-let handler = async (m, { conn, text, args, usedPrefix, command }) => {  
-    // Verifica si 'args' está definido  
-    if (!args || !args[0]) {  
-        throw `⚠️️ *_Ingrese un texto para iniciar la encuesta._*\n\n📌 Ejemplo : \n*${usedPrefix + command}* texto|texto2...`;  
-    }  
+/*MEJORADO POR CRISS
+github.com/CrxstianEscobar
+Shadow Code*/
 
-    // Verifica que 'text' esté definido y contenga el separador '|'  
-    if (!text || !text.includes('|')) {   
-        throw `⚠️️ Separe las encuestas con *|*\n\n📌 Ejemplo : \n*${usedPrefix + command}* texto|texto2...`;  
-    }  
+let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 
-    let a = [];  
-    let b = text.split('|'); // Divide el texto en opciones  
+    if (!args[0]) {
+        conn.reply(m.chat, `*[ ℹ️ ] Ingrese un texto para iniciar la encuesta.*\n\n*[ 💡 ] Ejemplo:*\n${usedPrefix + command} *texto|texto2*`, m);
+        return;
+    }
 
-    // Agrega las opciones a la matriz 'a'  
-    for (let c = 0; c < b.length; c++) {  
-        a.push([b[c].trim()]); // Usa .trim() para eliminar espacios innecesarios  
-    }  
+    if (!text.includes('|')) {
+        conn.reply(m.chat, `*[ ⚠️ ] Separe las opciones de la encuesta con \`|\`*\n\n*[ 💡 ] Ejemplo:*\n${usedPrefix + command} *texto|texto2*`, m);
+        return;
+    }
 
-    // Verifica que 'a' no esté vacío  
-    if (a.length === 0) {  
-        throw `⚠️️ No se han agregado opciones a la encuesta.`;  
-    }  
+    let opciones = [...new Set(text.split('|'))].map(opcion => [opcion]); // Elimina duplicados
 
-    // Envía la encuesta  
-    return conn.sendPoll(m.chat, `${wm}`, a, m);  
-}  
+    if (opciones.length < 2) {
+        conn.reply(m.chat, `*[ ⚠️️ ] Debe haber al menos dos opciones diferentes en la encuesta.*`, m);
+        return;
+    }
 
-handler.help = ['encuesta <text|text2>'];  
-handler.tags = ['grupo'];   
-handler.command = ['poll', 'encuesta'];   
-handler.group = true;  
+    return conn.sendPoll(m.chat, `*📊 Encuesta:*`, opciones, m);
+};
 
-export default handler;  
+handler.help = ['encuesta *<texto|texto2>*'];
+handler.tags = ['gc'];
+handler.command = ['poll', 'encuesta'];
+handler.group = true;
+
+export default handler;
