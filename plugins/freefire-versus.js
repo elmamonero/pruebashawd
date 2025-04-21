@@ -66,53 +66,113 @@ const handler = async (m, { text, conn, args, usedPrefix, command }) => {
     let iconos = [];  
     let iconos2 = [];  
 
-    switch (command) {  
-    case 'v4fem':  
-    case 'vsfem4':  
-        titulo = '4VS4 FEM';  
-        players = 'Jugadoras:';  
-        iconos = ['🌸', '🌸', '🌸', '🌸'];  
-        iconos2 = ['🦋', '🦋']; // Mariposas rosas para un toque más elegante  
-        break;  
-    case 'v4masc':  
-    case 'vsmasc4':  
-        titulo = '4VS4 MASC';  
-        players = 'Jugadores:';  
-        iconos = ['🥥', '🥥', '🥥', '🥥'];  
-        iconos2 = ['💪', '💪']; // Fuerza y masculinidad  
-        break;  
-    case 'v4mixto':  
-    case 'vsmixto4':  
-        titulo = '4VS4 MIXTO';  
-        players = 'Jugadores:';  
-        iconos = ['🍁', '🍁', '🍁', '🍁'];  
-        iconos2 = ['🔄', '🔄']; // Representando integración y equilibrio  
-        break;  
-    case 'v6fem':  
-    case 'vsfem6':  
-        titulo = '6VS6 FEM';  
-        players = 'Jugadoras:';  
-        iconos = ['🦋', '🦋', '🦋', '🦋', '🦋', '🦋'];  
-        iconos2 = ['💖', '💖']; // Brillo y elegancia femenina  
-        break;  
-    case 'v6masc':  
-    case 'vsmasc6':  
-        titulo = '6VS6 MASC';  
-        players = 'Jugadores:';  
-        iconos = ['🥞', '🥞', '🥞', '🥞', '🥞', '🥞'];  
-        iconos2 = ['🔥', '🔥']; // Intensidad y competición  
-        break;  
-    case 'v6mixto':  
-    case 'vsmixto6':  
-        titulo = '6VS6 MIXTO';  
-        players = 'Jugadores:';  
-        iconos = ['🥯', '🥯', '🥯', '🥯', '🥯', '🥯'];  
-        iconos2 = ['🌍', '🌍']; // Unión y diversidad  
-        break;  
-    default:  
-        conn.reply(m.chat, '*[ ❌ ] Comando no válido.*', m);  
-        return;  
-}  
+    switch (command) {
+    // 4VS4 FEM
+    case 'v4fem':
+    case 'vsfem4':
+    case '4v4fem':
+    case '4vs4fem':
+        titulo = '4VS4 FEM';
+        players = 'Jugadoras:';
+        iconos = ['🌸', '🌸', '🌸', '🌸'];
+        iconos2 = ['🦋', '🦋'];
+        break;
+
+    // 4VS4 MASC
+    case 'v4masc':
+    case 'vsmasc4':
+    case '4v4masc':
+    case '4vs4masc':
+        titulo = '4VS4 MASC';
+        players = 'Jugadores:';
+        iconos = ['🥥', '🥥', '🥥', '🥥'];
+        iconos2 = ['💪', '💪'];
+        break;
+
+    // 4VS4 MIXTO
+    case 'v4mixto':
+    case 'vsmixto4':
+    case '4v4mixto':
+    case '4vs4mixto':
+        titulo = '4VS4 MIXTO';
+        players = 'Jugadores:';
+        iconos = ['🍁', '🍁', '🍁', '🍁'];
+        iconos2 = ['🔄', '🔄'];
+        break;
+
+    // 6VS6 FEM
+    case 'v6fem':
+    case 'vsfem6':
+    case '6v6fem':
+    case '6vs6fem':
+        titulo = '6VS6 FEM';
+        players = 'Jugadoras:';
+        iconos = ['🦋', '🦋', '🦋', '🦋', '🦋', '🦋'];
+        iconos2 = ['💖', '💖'];
+        break;
+
+    // 6VS6 MASC
+    case 'v6masc':
+    case 'vsmasc6':
+    case '6v6masc':
+    case '6vs6masc':
+        titulo = '6VS6 MASC';
+        players = 'Jugadores:';
+        iconos = ['⚡', '⚡', '⚡', '⚡', '⚡', '⚡'];
+        iconos2 = ['🔥', '🔥'];
+        break;
+
+    // 6VS6 MIXTO
+    case 'v6mixto':
+    case 'vsmixto6':
+    case '6v6mixto':
+    case '6vs6mixto':
+        titulo = '6VS6 MIXTO';
+        players = 'Jugadores:';
+        iconos = ['🌟', '🌟', '🌟', '🌟', '🌟', '🌟'];
+        iconos2 = ['🌀', '🌀'];
+        break;
+
+    // SCRIM
+    case 'scrim':
+    case '.scrim':
+        titulo = 'SCRIM 🔸';
+        players = 'Titulares:';
+        iconos = ['🎯', '🎯', '🎯', '🎯'];
+        iconos2 = ['🪑 Suplentes:', '🪑', '🪑'];
+        break;
+
+    // GUERRA
+    case 'guerra':
+    case '.guerra':
+        titulo = 'GUERRA 🔥';
+        players = 'Escuadras:';
+        iconos = [
+            '1️⃣', '👤', '👤', '👤', '👤',
+            '2️⃣', '👤', '👤', '👤', '👤',
+            '3️⃣', '👤', '👤', '👤', '👤',
+            '4️⃣', '👤', '👤', '👤', '👤',
+            '5️⃣', '👤', '👤', '👤', '👤',
+            '6️⃣', '👤', '👤', '👤', '👤',
+            '7️⃣', '👤', '👤', '👤', '👤',
+            '8️⃣', '👤', '👤', '👤', '👤',
+            '9️⃣', '👤', '👤', '👤', '👤',
+            '🔟', '👤', '👤', '👤', '👤',
+            '⓫', '👤', '👤', '👤', '👤',
+            '⓬', '👤', '👤', '👤', '👤'
+        ];
+        iconos2 = []; // Sin suplentes, solo escuadras
+        break;
+
+    // DEFAULT
+    default:
+        titulo = 'MODALIDAD NO RECONOCIDA';
+        players = 'Participantes:';
+        iconos = ['❓'];
+        iconos2 = ['❔'];
+        break;
+}
+  
 
     const message = `ㅤㅤㅤ *\`${titulo}\`*  
 
