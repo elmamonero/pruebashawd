@@ -130,4 +130,8 @@ ${iconos2.map(icono => `${icono}˚ `).join('\n')}
     conn.sendMessage(m.chat, { text: message, mentions: [m.sender] }, { quoted: m });  
 };  
 
+handler.help = ['v4fem', 'vsfem4', 'v4masc', 'vsmasc4', 'v4mixto', 'vsmixto4', 'v6fem', 'vsfem6', 'v6masc', 'vsmasc6', 'v6mixto', 'vsmixto6'];  
+handler.tags = ['ff'];  
+handler.command = /^(v4fem|vsfem4|v4masc|vsmasc4|v4mixto|vsmixto4|v6fem|vsfem6|v6masc|vsmasc6|v6mixto|vsmixto6)$/i;  
+
 export default handler;
