@@ -1,7 +1,3 @@
-/* 
-Created by Crxstian Escobar 🌙
-*/
-
 const handler = async (m, {conn, usedPrefix, text}) => {
   if (isNaN(text) && !text.match(/@/g)) {
   } else if (isNaN(text)) {
