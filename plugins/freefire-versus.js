@@ -121,9 +121,7 @@ ${iconos.map(icono => `${icono}˚ `).join('\n')}
 
 ㅤ \`Sᥙ⍴ᥣᥱᥒ𝗍ᥱs:\`
 
-${iconos2.map(icono => `${icono}˚ `).join('\n')}
-
-> © Տһᥲძᨣᥕ Ɓᨣƚ Uᥣ𝗍rᥲ `.trim();
+${iconos2.map(icono => `${icono}˚ `).join('\n')}`.trim();
 
     conn.sendMessage(m.chat, { text: message }, { quoted: m });
 };
