@@ -8,12 +8,23 @@ const handler = async (m, { text, conn, args, usedPrefix, command }) => {
         return;
     }
 
-    // Nueva validación para formato de 24 horas
-    const horaRegex = /^([01]?[0-9]|2[0-3])(:[0-5][0-9])?$/;  
+    // Validación para formato de hora en 12 horas
+    const horaRegex = /^(0?[1-9]|1[0-2]):[0-5][0-9]$/;
     if (!horaRegex.test(args[0])) {  
-        conn.reply(m.chat, '*[ ⏰ ] Formato de hora incorrecto.*', m);  
+        conn.reply(m.chat, '*[ ⏰ ] Formato de hora incorrecto. Debe ser HH:MM en formato de 12 horas.*', m);  
         return;  
-    }  
+    }
+
+    // Validación para AM/PM
+    const ampm = args[1].toUpperCase();
+    if (!['AM', 'PM'].includes(ampm)) {  
+        conn.reply(m.chat, '*[ ⏰ ] Debes especificar "AM" o "PM" después de la hora.*', m);  
+        return;  
+    }
+
+    let [hora, minutos] = args[0].split(':').map(Number);
+    if (ampm === 'PM' && hora !== 12) hora += 12;
+    if (ampm === 'AM' && hora === 12) hora = 0;  
 
     let [hora, minutos] = args[0].includes(':') ? args[0].split(':').map(Number) : [Number(args[0]), 0];
 
