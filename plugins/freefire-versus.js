@@ -56,9 +56,13 @@ const handler = async (m, { text, conn, args, usedPrefix, command }) => {
     const modalidad = args.slice(3).join(' ');  
     m.react('🎮');  
 
+    const banderas = {  
+        MX: '🇲🇽', CO: '🇨🇴', CL: '🇨🇱', AR: '🇦🇷', PE: '🇵🇪', EC: '🇪🇨', UY: '🇺🇾', VE: '🇻🇪'  
+    };  
+
     // Configuración de la modalidad según el comando usado  
     let titulo = '';  
-    let players = [];  
+    let players = '';  
     let iconos = [];  
     let iconos2 = [];  
 
@@ -66,42 +70,42 @@ const handler = async (m, { text, conn, args, usedPrefix, command }) => {
         case 'v4fem':  
         case 'vsfem4':  
             titulo = '4VS4 FEM';  
-            players = ['Jugadoras:'];  
+            players = 'Jugadoras:';  
             iconos = ['🌸', '🌸', '🌸', '🌸'];  
             iconos2 = ['🌸', '🌸'];  
             break;  
         case 'v4masc':  
         case 'vsmasc4':  
             titulo = '4VS4 MASC';  
-            players = ['Jugadores:'];  
+            players = 'Jugadores:';  
             iconos = ['🥥', '🥥', '🥥', '🥥'];  
             iconos2 = ['🥥', '🥥'];  
             break;  
         case 'v4mixto':  
         case 'vsmixto4':  
             titulo = '4VS4 MIXTO';  
-            players = ['Jugadores:'];  
+            players = 'Jugadores:';  
             iconos = ['🍁', '🍁', '🍁', '🍁'];  
             iconos2 = ['🍁', '🍁'];  
             break;  
         case 'v6fem':  
         case 'vsfem6':  
             titulo = '6VS6 FEM';  
-            players = ['Jugadoras:'];  
+            players = 'Jugadoras:';  
             iconos = ['🦋', '🦋', '🦋', '🦋', '🦋', '🦋'];  
             iconos2 = ['🦋', '🦋'];  
             break;  
         case 'v6masc':  
         case 'vsmasc6':  
             titulo = '6VS6 MASC';  
-            players = ['Jugadores:'];  
+            players = 'Jugadores:';  
             iconos = ['🥞', '🥞', '🥞', '🥞', '🥞', '🥞'];  
             iconos2 = ['🥞', '🥞'];  
             break;  
         case 'v6mixto':  
         case 'vsmixto6':  
             titulo = '6VS6 MIXTO';  
-            players = ['Jugadores:'];  
+            players = 'Jugadores:';  
             iconos = ['🥯', '🥯', '🥯', '🥯', '🥯', '🥯'];  
             iconos2 = ['🥯', '🥯'];  
             break;  
@@ -114,17 +118,17 @@ const handler = async (m, { text, conn, args, usedPrefix, command }) => {
 
 🕹꒱ *Reglas:* ${modalidad}  
 ⏰꒱ *Hora:*  
-${Object.entries(horasEnPais).map(([p, h]) => `🇦🇷 ${p}: ${h}`).join('\n')}  
+${Object.entries(horasEnPais).map(([p, h]) => `${banderas[p]} ${p}: ${h}`).join('\n')}  
 
-ㅤ \`${players}\`  
+ㅤ *${players}*  
 
 ${iconos.map(icono => `${icono}˚ `).join('\n')}  
 
-ㅤ \`Salientes:\`  
+ㅤ *Salientes:*  
 
 ${iconos2.map(icono => `${icono}˚ `).join('\n')}  
 
-ㅤ \`Organizador:\`  
+ㅤ *Organizador:*  
 @${m.sender.split('@')[0]}`.trim();  
 
     conn.sendMessage(m.chat, { text: message, mentions: [m.sender] }, { quoted: m });  
