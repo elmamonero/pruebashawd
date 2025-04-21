@@ -1,5 +1,3 @@
-//By CrxstianEscobar 
-
 let handler = async (m, { conn }) => {
   if (global.chiste && global.chiste.length > 0) {
     const chisteAleatorio = pickRandom(global.chiste);
