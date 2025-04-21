@@ -1,7 +1,7 @@
 const handler = async (m, { text, conn, args, usedPrefix, command }) => {
 
     if (args.length < 2) {  
-        conn.reply(m.chat, `*[ ℹ️ ] Proporciona una hora seguido el país y una modalidad.*
+        conn.reply(m.chat, `*[ ℹ️ ] Proporciona una haaora seguido el país y una modalidad.*
 *Usa AR para Argentina y PE para Perú.*
 
 *[ 💡 ] Ejemplo:* .${command} 20 pe Vv2`, m);
