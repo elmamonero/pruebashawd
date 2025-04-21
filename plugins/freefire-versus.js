@@ -19,11 +19,15 @@ const handler = async (m, { text, conn, args, usedPrefix, command }) => {
 
     const pais = args[1].toUpperCase();  
 
-    const diferenciasHorarias = {  
-        CL: 2,  // UTC-4  
-        AR: 2,  // UTC-3  
-        PE: 0,  // UTC-5  
-    };  
+    const diferenciasHorarias = {
+    MX: -1, // UTC-6
+    CO: 0,  // UTC-5
+    CL: 2,  // UTC-4
+    AR: 2,  // UTC-3
+    PE: 0,  // UTC-5
+    EC: 0   // UTC-5
+};
+  
 
     if (!(pais in diferenciasHorarias)) {  
         conn.reply(m.chat, '*[ ℹ️ ] País no válido. Usa AR para Argentina, PE para Perú.*', m);  
@@ -31,9 +35,9 @@ const handler = async (m, { text, conn, args, usedPrefix, command }) => {
     }  
 
     const diferenciaHoraria = diferenciasHorarias[pais];  
-    const formatTime = (date) => date.toLocaleTimeString('es', { hour12: false, hour: '2-digit', minute: '2-digit' });  
+    const formatTime = (date) => date.toLocaleTimeString('es', { hour12: true, hour: '2-digit', minute: '2-digit' });  
 
-    const horasEnPais = { CL: '', AR: '', PE: '' };  
+    const horasEnPais = { MX: '', CO: '', CL: '', AR: '', PE: '', EC: '' };  
 
     for (const key in diferenciasHorarias) {  
         const horaActual = new Date();  
