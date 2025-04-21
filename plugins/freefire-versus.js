@@ -1,8 +1,14 @@
 const handler = async (m, { text, conn, args, usedPrefix, command }) => {  
 
     if (args.length < 3) {  
-        conn.reply(m.chat, `*[ ℹ️ ] Ingresa una hora en formato (HH:MM) seguido de AM/PM, el país y la modalidad.*  
-*Usa MX para México, CO para Colombia, CL para Chile, AR para Argentina, PE para Perú y EC para Ecuador.*  
+        conn.reply(m.chat, `*[ ℹ️ ] Ingresa una hora en formato (HH:MM AM/PM) seguida del país y la modalidad.*  
+*Usa:*  
+🇲🇽 MX para México  
+🇨🇴 CO para Colombia  
+🇨🇱 CL para Chile  
+🇦🇷 AR para Argentina  
+🇵🇪 PE para Perú  
+🇪🇨 EC para Ecuador  
 
 *[ 💡 ] Ejemplo:* .${command} 08:30 PM PE Vv2`, m);  
         return;  
@@ -11,7 +17,7 @@ const handler = async (m, { text, conn, args, usedPrefix, command }) => {
     // Validación para formato de hora en 12 horas  
     const horaRegex = /^(0?[1-9]|1[0-2]):[0-5][0-9]$/;  
     if (!horaRegex.test(args[0])) {  
-        conn.reply(m.chat, '*[ ⏰ ] Formato de hora incorrecto. Debe ser HH:MM en formato de 12 horas.*', m);  
+        conn.reply(m.chat, '*[ ⏰ ] Formato de hora incorrecto. Debe ser HH:MM en formato de 12 horas (ejemplo: 07:00 AM o 11:30 PM).*', m);  
         return;  
     }  
 
@@ -40,7 +46,7 @@ const handler = async (m, { text, conn, args, usedPrefix, command }) => {
     };  
 
     if (!(pais in diferenciasHorarias)) {  
-        conn.reply(m.chat, '*[ ℹ️ ] País no válido. Usa MX para México, CO para Colombia, CL para Chile, AR para Argentina, PE para Perú y EC para Ecuador.*', m);  
+        conn.reply(m.chat, '*[ ℹ️ ] País no válido. Usa códigos de país en mayúsculas: MX, CO, CL, AR, PE, EC.*', m);  
         return;  
     }  
 
