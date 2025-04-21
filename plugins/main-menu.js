@@ -1,324 +1,290 @@
-import fs from 'fs'
-import fetch from 'node-fetch'
-import { xpRange } from '../lib/levelling.js'
-import { promises } from 'fs'
-import { join } from 'path'
+import fetch from 'node-fetch';
 
-let handler = async (m, { conn, usedPrefix, usedPrefix: _p, __dirname, text, command }) => {
-    try {
-        let { exp, diamantes, level, role } = global.db.data.users[m.sender]
-        let { min, xp, max } = xpRange(level, global.multiplier)
-        let name = await conn.getName(m.sender)
-        exp = exp || 'Desconocida';
-        role = role || 'Aldeano';
+const handler = async (m, { conn, usedPrefix, isPrems }) => {
+  try {
+    await m.react('🧡');
 
-        const _uptime = process.uptime() * 1000;
-        const uptime = clockString(_uptime);
+    let img = 'https://files.catbox.moe/kmfqee.jpg';
+    let insta = 'https://chat.whatsapp.com/HvDCvNqXSiW19MFXJmWhoF';
 
-        let totalreg = Object.keys(global.db.data.users).length
-        let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length
+    const _uptime = process.uptime() * 1000;
+    const uptime = clockString(_uptime);
 
-        await m.react('🍪')
-        let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
-        let perfil = 'https://files.catbox.moe/kmfqee.jpg' // URL fija de la imagen proporcionada
+    const user = global.db.data.users[m.sender] || {};
+    const { money = 0, joincount = 0, exp = 0, limit = 0, level = 0, role = '' } = user;
 
-        let menu = `'
-ㅤㅤㅤ⩁꯭ ͡  ͡ᩚ꯭ ꯭⩁ㅤㅤ𑁯🤍ᰍㅤㅤ⩁꯭ ͡  ͡ᩚ꯭ ꯭⩁
-೯ ׅ 👤 ¡Hᴏʟᴀ! ¿Cᴏᴍᴏ Esᴛᴀ́s? ׄ ᦡᦡ
-ㅤ꒰͜͡${taguser}
-ㅤㅤ♡𑂳ᩙㅤ ּ ${saludo} ׄ ㅤタス
+    let totalreg = Object.keys(global.db.data.users || {}).length;
+    let rtotalreg = Object.values(global.db.data.users || {}).filter(user => user.registered).length;
 
-*🧇 Activo:* ${uptime}
-*👥 Usuarios:* ${totalreg}
-*🆙 Versión:* 3.0.0
+    const taguser = '@' + m.sender.split('@s.whatsapp.net')[0];
 
-*💎 Gemas:* ${diamantes}
-*💫 Exp:* ${exp}
-*🫖 Nivel:* ${level}
-*🍢 Rango:* ${role}
+    const botname = 'Pantheon Bot';
+
+    const text = `
+︵᷼     ⿻ *PANTHEON* ࣪   ࣭  ࣪ *WA BOT* ࣭  🐈  ࣪   ࣭
+✿ *Hᴏʟᴀ ${taguser}*\n*${saludo}*
+
+> ꒰꛱ ͜Desarrollado por *Pantheon* +584262668729
+
+𓏸🌺  \`Bot Name:\` ${botname}  
+𓈒𓏸🌷 \`Activo:\` ${uptime}  
+𓈒𓏸🍂 \`Usuarios:\` ${totalreg}  
+𓈒𓏸🌸 \`Versión:\` 1.0.0  
+
+> 😸 Si encuentras un comando con errores no dudes en reportarlo con el Creador
 ${readMore}
-ㅤ ㅤ   乂 *ʟɪsᴛᴀ ᴅᴇ ᴄᴏᴍᴀɴᴅᴏs* 乂
+↷✦; *\`MENÚS\`* ❞ 🌷︵᷼ 
+⠞🌷੭‎ ${usedPrefix}menunsfw
+⠞🌷੭‎ ${usedPrefix}menuowner
+⠞🌷੭‎ ${usedPrefix}menulogos
 
-𓂂𓏸  𐅹੭੭   *\`mᥱᥒᥙs\`*   🍃ᩚ꤬ᰨᰍ
-ര ׄ 🍃˚ ${usedPrefix}menunsfw
-ര ׄ 🍃˚ ${usedPrefix}menuaudios
-ര ׄ 🍃˚ ${usedPrefix}menuff
-ര ׄ 🍃˚ ${usedPrefix}menuowner
-ര ׄ 🍃˚ ${usedPrefix}menulogos
+↷✦; \`INFO BOT\` ❞ 🍄︵᷼  
+⠞🍄੭‎ ${usedPrefix}totalf
+⠞🍄੭‎ ${usedPrefix}grupos
+⠞🍄੭‎ ${usedPrefix}sugerir
+⠞🍄੭‎ ${usedPrefix}report
+⠞🍄੭‎ ${usedPrefix}owner
+⠞🍄੭‎ ${usedPrefix}ping
+⠞🍄੭‎ ${usedPrefix}uptime
+⠞🍄੭‎ ${usedPrefix}horario
+⠞🍄੭‎ ${usedPrefix}precios
 
-𓂂𓏸  𐅹੭੭   *\`іᥒ𝖿᥆\`*   🫖ᩚ꤬ᰨᰍ
-ര ׄ 🫖˚ ${usedPrefix}totalf
-ര ׄ 🫖˚ ${usedPrefix}grupos
-ര ׄ 🫖˚ ${usedPrefix}sugerir
-ര ׄ 🫖˚ ${usedPrefix}report
-ര ׄ 🫖˚ ${usedPrefix}owner
-ര ׄ 🫖˚ ${usedPrefix}ping
-ര ׄ 🫖˚ ${usedPrefix}uptime
-ര ׄ 🫖˚ ${usedPrefix}horario
-ര ׄ 🫖˚ ${usedPrefix}precios
+↷✦; \`CONFIG\` ❞ 🪻︵᷼ 
+⠞🪻੭‎ ${usedPrefix}enable *opción*
+⠞🪻੭‎ ${usedPrefix}disable *opción*
+⠞🪻੭‎ ${usedPrefix}on *opción*
+⠞🪻੭‎ ${usedPrefix}off *opción*
+⠞🪻੭‎ ${usedPrefix}manual
 
-𓂂𓏸  𐅹੭੭   *\`᥆ᥒ - ᥆𝖿𝖿\`*   🌿ᩚ꤬ᰨᰍ
-ര ׄ 🌿˚ ${usedPrefix}enable *opción*
-ര ׄ 🌿˚ ${usedPrefix}disable *opción*
-ര ׄ 🌿˚ ${usedPrefix}on *opción*
-ര ׄ 🌿˚ ${usedPrefix}off *opción*
-ര ׄ 🌿˚ ${usedPrefix}manual
+↷✦; \`DOWNLOAD\` ❞ 🪷︵᷼ 
+⠞🪷੭‎ ${usedPrefix}play *texto*
+⠞🪷੭‎ ${usedPrefix}ytmp4doc *texto*
+⠞🪷੭‎ ${usedPrefix}ytmp3doc *texto*
+⠞🪷੭‎ ${usedPrefix}apk *texto*
+⠞🪷੭‎ ${usedPrefix}pinterest *texto*
+⠞🪷੭‎ ${usedPrefix}pinvid *url*
+⠞🪷੭‎ ${usedPrefix}ytv *url*
+⠞🪷੭‎ ${usedPrefix}ytmp3 *url*
+⠞🪷੭‎ ${usedPrefix}tiktok *url*
+⠞🪷੭‎ ${usedPrefix}instagram *url*
+⠞🪷੭‎ ${usedPrefix}facebook *url*
+⠞🪷੭‎ ${usedPrefix}mediafire *url*
+⠞🪷੭‎ ${usedPrefix}mega *url*
+⠞🪷੭‎ ${usedPrefix}playstore *url*
+⠞🪷੭‎ ${usedPrefix}xnxxdl *url*
+⠞🪷੭‎ ${usedPrefix}xvideosdl *url*
 
-𓂂𓏸  𐅹੭੭   *\`ძᥱsᥴᥲrgᥲs\`*   📥ᩚ꤬ᰨᰍ
-ര ׄ 📥˚ ${usedPrefix}play *texto*
-ര ׄ 📥˚ ${usedPrefix}aplay *texto*
-ര ׄ 📥˚ ${usedPrefix}aplay2 *texto*
-ര ׄ 📥˚ ${usedPrefix}splay *texto*
-ര ׄ 📥˚ ${usedPrefix}ytmp4doc *texto*
-ര ׄ 📥˚ ${usedPrefix}ytmp3doc *texto*
-ര ׄ 📥˚ ${usedPrefix}apk *texto*
-ര ׄ 📥˚ ${usedPrefix}pinterest *texto*
-ര ׄ 📥˚ ${usedPrefix}capcut *url*
-ര ׄ 📥˚ ${usedPrefix}pinvid *url*
-ര ׄ 📥˚ ${usedPrefix}ytmp4 *url*
-ര ׄ 📥˚ ${usedPrefix}ytmp3 *url*
-ര ׄ 📥˚ ${usedPrefix}tiktok *url*
-ര ׄ 📥˚ ${usedPrefix}tiktok2 *url*
-ര ׄ 📥˚ ${usedPrefix}instagram *url*
-ര ׄ 📥˚ ${usedPrefix}facebook *url*
-ര ׄ 📥˚ ${usedPrefix}mediafire *url*
-ര ׄ 📥˚ ${usedPrefix}mega *url*
-ര ׄ 📥˚ ${usedPrefix}playstore *url*
-ര ׄ 📥˚ ${usedPrefix}xnxxdl *url*
-ര ׄ 📥˚ ${usedPrefix}xvideosdl *url*
-ര ׄ 📥˚ ${usedPrefix}pornhubdl *url*
+↷✦; \`SEARCH\` ❞ 🍮︵᷼ 
+⠞🍮੭‎ ${usedPrefix}aplaysearch *texto*
+⠞🍮੭‎ ${usedPrefix}ttsearch *texto*
+⠞🍮੭‎ ${usedPrefix}ttsearch2 *texto*
+⠞🍮੭‎ ${usedPrefix}ytsearch *texto*
+⠞🍮੭‎ ${usedPrefix}spotifysearch *texto*
+⠞🍮੭‎ ${usedPrefix}playstoresearch *texto*
+⠞🍮੭‎ ${usedPrefix}xnxxsearch *texto*
+⠞🍮੭‎ ${usedPrefix}xvsearch *texto*
+⠞🍮੭‎ ${usedPrefix}gnula *texto*
+⠞🍮੭‎ ${usedPrefix}mercadolibre *texto*
 
-𓂂𓏸  𐅹੭੭   *\`ᑲᥙsᥴᥲძ᥆rᥱs\`*   🔎ᩚ꤬ᰨᰍ
-ര ׄ 🔎˚ ${usedPrefix}scsearch *texto*
-ര ׄ 🔎˚ ${usedPrefix}aplaysearch *texto*
-ര ׄ 🔎˚ ${usedPrefix}ttsearch *texto*
-ര ׄ 🔎˚ ${usedPrefix}ttsearch2 *texto*
-ര ׄ 🔎˚ ${usedPrefix}ytsearch *texto*
-ര ׄ 🔎˚ ${usedPrefix}hpmsearch *texto*
-ര ׄ 🔎˚ ${usedPrefix}spotifysearch *texto*
-ര ׄ 🔎˚ ${usedPrefix}githubsearch *texto*
-ര ׄ 🔎˚ ${usedPrefix}playstoresearch *texto*
-ര ׄ 🔎˚ ${usedPrefix}xnxxsearch *texto*
-ര ׄ 🔎˚ ${usedPrefix}xvsearch *texto*
-ര ׄ 🔎˚ ${usedPrefix}pornhubsearch *texto*
-ര ׄ 🔎˚ ${usedPrefix}gnula *texto*
-ര ׄ 🔎˚ ${usedPrefix}mercadolibre *texto*
-ര ׄ 🔎˚ ${usedPrefix}ffstalk *id*
+↷✦; \`LISTAS\` ❞ 📜︵᷼ 
+⠞📜੭‎ ${usedPrefix}v4fem *hr + p*
+⠞📜੭‎ ${usedPrefix}v4masc *hr + p*
+⠞📜੭‎ ${usedPrefix}v4mixto *hr + p*
+⠞📜੭‎ ${usedPrefix}v6fem *hr + p*
+⠞📜੭‎ ${usedPrefix}v6masc *hr + p*
+⠞📜੭‎ ${usedPrefix}v6mixto *hr + p*
 
-𓂂𓏸  𐅹੭੭   *\`іᥒ𝗍ᥱᥣіgᥱᥒᥴіᥲs\`*   ☕ᩚ꤬ᰨᰍ
-ര ׄ ☕˚ ${usedPrefix}ia *texto*
-ര ׄ ☕˚ ${usedPrefix}shadow *texto*
-ര ׄ ☕˚ ${usedPrefix}flux *texto*
-ര ׄ ☕˚ ${usedPrefix}chatgpt *texto*
-ര ׄ ☕˚ ${usedPrefix}imgg *texto*
-ര ׄ ☕˚ ${usedPrefix}imgg2 *texto*
+↷✦; \`FRASES\` ❞ 🌻︵᷼ 
+⠞🌻੭‎ ${usedPrefix}piropo
+⠞🌻੭‎ ${usedPrefix}consejo
+⠞🌻੭‎ ${usedPrefix}fraseromantica
 
-𓂂𓏸  𐅹੭੭   *\`ᥣіs𝗍ᥲs\`*   📑ᩚ꤬ᰨᰍ
-ര ׄ 📑˚ ${usedPrefix}infem4 *hr + p*
-ര ׄ 📑˚ ${usedPrefix}inmasc4 *hr + p*
-ര ׄ 📑˚ ${usedPrefix}inmixto4 *hr + p*
-ര ׄ 📑˚ ${usedPrefix}infem6 *hr + p*
-ര ׄ 📑˚ ${usedPrefix}inmasc6 *hr + p*
-ര ׄ 📑˚ ${usedPrefix}inmixto6 *hr + p*
-ര ׄ 📑˚ ${usedPrefix}v4fem *hr + p*
-ര ׄ 📑˚ ${usedPrefix}v4masc *hr + p*
-ര ׄ 📑˚ ${usedPrefix}v4mixto *hr + p*
-ര ׄ 📑˚ ${usedPrefix}v6fem *hr + p*
-ര ׄ 📑˚ ${usedPrefix}v6masc *hr + p*
-ര ׄ 📑˚ ${usedPrefix}v6mixto *hr + p*
+↷✦; \`CONVERTERS\` ❞ 🧸︵᷼ 
+⠞🧸੭‎ ${usedPrefix}tourl *img*
+⠞🧸੭‎ ${usedPrefix}tourl *aud*
+⠞🧸੭‎ ${usedPrefix}toptt *aud*
+⠞🧸੭‎ ${usedPrefix}toptt *vid*
+⠞🧸੭‎ ${usedPrefix}tourl *vid*
+⠞🧸੭‎ ${usedPrefix}tomp3 *vid*
+⠞🧸੭‎ ${usedPrefix}toimg *sticker*
 
-𓂂𓏸  𐅹੭੭   *\`𝖿rᥲsᥱs\`*   🌻ᩚ꤬ᰨᰍ
-ര ׄ 🌻˚ ${usedPrefix}piropo
-ര ׄ 🌻˚ ${usedPrefix}consejo
-ര ׄ 🌻˚ ${usedPrefix}fraseromantica
+↷✦; \`TOOLS\` ❞ 🛠️︵᷼ 
+⠞🛠️੭‎ ${usedPrefix}clima *texto*
+⠞🛠️੭‎ ${usedPrefix}readmore *texto*
+⠞🛠️੭‎ ${usedPrefix}read *texto*
+⠞🛠️੭‎ ${usedPrefix}fake *texto + user + texto*
+⠞🛠️੭‎ ${usedPrefix}traducir *idioma + texto*
+⠞🛠️੭‎ ${usedPrefix}hd *img*
+⠞🛠️੭‎ ${usedPrefix}whatmusic *aud*
+⠞🛠️੭‎ ${usedPrefix}whatmusic *vid*
+⠞🛠️੭‎ ${usedPrefix}flag *país*
+⠞🛠️੭‎ ${usedPrefix}inspect *link*
+⠞🛠️੭‎ ${usedPrefix}inspeccionar *link*
+⠞🛠️੭‎ ${usedPrefix}nuevafotochannel
+⠞🛠️੭‎ ${usedPrefix}nosilenciarcanal
+⠞🛠️੭‎ ${usedPrefix}silenciarcanal
+⠞🛠️੭‎ ${usedPrefix}seguircanal
+⠞🛠️੭‎ ${usedPrefix}avisoschannel
+⠞🛠️੭‎ ${usedPrefix}resiviravisos
+⠞🛠️੭‎ ${usedPrefix}eliminarfotochannel
+⠞🛠️੭‎ ${usedPrefix}reactioneschannel
+⠞🛠️੭‎ ${usedPrefix}reaccioneschannel
+⠞🛠️੭‎ ${usedPrefix}nuevonombrecanal
+⠞🛠️੭‎ ${usedPrefix}nuevadescchannel
 
-𓂂𓏸  𐅹੭੭   *\`ᥴ᥆ᥒ᥎ᥱr𝗍іძ᥆rᥱs\`*   🪸ᩚ꤬ᰨᰍ
-ര ׄ 🪸˚ ${usedPrefix}tourl *img*
-ര ׄ 🪸˚ ${usedPrefix}tourl *aud*
-ര ׄ 🪸˚ ${usedPrefix}toptt *aud*
-ര ׄ 🪸˚ ${usedPrefix}toptt *vid*
-ര ׄ 🪸˚ ${usedPrefix}tourl *vid*
-ര ׄ 🪸˚ ${usedPrefix}tomp3 *vid*
-ര ׄ 🪸˚ ${usedPrefix}toimg *sticker*
+↷✦; \`GROUPS\` ❞ 🌿︵᷼ 
+⠞🌿੭‎ ${usedPrefix}add *número*
+⠞🌿੭‎ ${usedPrefix}grupo *abrir / cerrar*
+⠞🌿੭‎ ${usedPrefix}grouptime *tiempo*
+⠞🌿੭‎ ${usedPrefix}notify *texto*
+⠞🌿੭‎ Aviso *texto*
+⠞🌿੭‎ Admins *texto*
+⠞🌿੭‎ ${usedPrefix}todos *texto*
+⠞🌿੭‎ ${usedPrefix}setwelcome *texto*
+⠞🌿੭‎ ${usedPrefix}groupdesc *texto*
+⠞🌿੭‎ ${usedPrefix}setbye *texto*
+⠞🌿੭‎ ${usedPrefix}promote *@tag*
+⠞🌿੭‎ ${usedPrefix}demote *@tag*
+⠞🌿੭‎ ${usedPrefix}kick *@tag*
+⠞🌿੭‎ ${usedPrefix}mute *@tag*
+⠞🌿੭‎ ${usedPrefix}inactivos *opción*
+⠞🌿੭‎ ${usedPrefix}tagnum *prefix*
+⠞🌿੭‎ ${usedPrefix}link
+⠞🌿੭‎ ${usedPrefix}fantasmas
 
-𓂂𓏸  𐅹੭੭   *\`hᥱrrᥲmіᥱᥒ𝗍ᥲs\`*   ⚒ᩚ꤬ᰨᰍ
-ര ׄ ⚒️˚ ${usedPrefix}clima *texto*
-ര ׄ ⚒️˚ ${usedPrefix}readmore *texto*
-ര ׄ ⚒️˚ ${usedPrefix}read *texto*
-ര ׄ ⚒️˚ ${usedPrefix}fake *texto + user + texto*
-ര ׄ ⚒️˚ ${usedPrefix}traducir *idioma + texto*
-ര ׄ ⚒️˚ ${usedPrefix}hd *img*
-ര ׄ ⚒️˚ ${usedPrefix}whatmusic *aud*
-ര ׄ ⚒️˚ ${usedPrefix}whatmusic *vid*
-ര ׄ ⚒️˚ ${usedPrefix}flag *país*
-ര ׄ ⚒️˚ ${usedPrefix}inspect *link*
-ര ׄ ⚒️˚ ${usedPrefix}inspeccionar *link*
-ര ׄ ⚒️˚ ${usedPrefix}nuevafotochannel
-ര ׄ ⚒️˚ ${usedPrefix}nosilenciarcanal
-ര ׄ ⚒️˚ ${usedPrefix}silenciarcanal
-ര ׄ ⚒️˚ ${usedPrefix}seguircanal
-ര ׄ ⚒️˚ ${usedPrefix}avisoschannel
-ര ׄ ⚒️˚ ${usedPrefix}resiviravisos
-ര ׄ ⚒️˚ ${usedPrefix}eliminarfotochannel
-ര ׄ ⚒️˚ ${usedPrefix}reactioneschannel
-ര ׄ ⚒️˚ ${usedPrefix}reaccioneschannel
-ര ׄ ⚒️˚ ${usedPrefix}nuevonombrecanal
-ര ׄ ⚒️˚ ${usedPrefix}nuevadescchannel
+↷✦; \`EFFECTS\` ❞ 🍃︵᷼ 
+⠞🍃੭‎ ${usedPrefix}bass *vid*
+⠞🍃੭‎ ${usedPrefix}blown *vid*
+⠞🍃੭‎ ${usedPrefix}deep *vid*
+⠞🍃੭‎ ${usedPrefix}earrape *vid*
+⠞🍃੭‎ ${usedPrefix}fast *vid*
+⠞🍃੭‎ ${usedPrefix}smooth *vid*
+⠞🍃੭‎ ${usedPrefix}tupai *vid*
+⠞🍃੭‎ ${usedPrefix}nightcore *vid*
+⠞🍃੭‎ ${usedPrefix}reverse *vid*
+⠞🍃੭‎ ${usedPrefix}robot *vid*
+⠞🍃੭‎ ${usedPrefix}slow *vid*
+⠞🍃੭‎ ${usedPrefix}squirrel *vid*
+⠞🍃੭‎ ${usedPrefix}chipmunk *vid*
+⠞🍃੭‎ ${usedPrefix}reverb *vid*
+⠞🍃੭‎ ${usedPrefix}chorus *vid*
+⠞🍃੭‎ ${usedPrefix}flanger *vid*
+⠞🍃੭‎ ${usedPrefix}distortion *vid*
+⠞🍃੭‎ ${usedPrefix}pitch *vid*
+⠞🍃੭‎ ${usedPrefix}highpass *vid*
+⠞🍃੭‎ ${usedPrefix}lowpass *vid*
+⠞🍃੭‎ ${usedPrefix}underwater *vid*
 
-𓂂𓏸  𐅹੭੭   *\`grᥙ⍴᥆s\`*   🌵ᩚ꤬ᰨᰍ
-ര ׄ 🌵˚ ${usedPrefix}add *número*
-ര ׄ 🌵˚ ${usedPrefix}grupo *abrir / cerrar*
-ര ׄ 🌵˚ ${usedPrefix}grouptime *tiempo*
-ര ׄ 🌵˚ ${usedPrefix}notify *texto*
-ര ׄ 🌵˚ Aviso *texto*
-ര ׄ 🌵˚ Admins *texto*
-ര ׄ 🌵˚ ${usedPrefix}todos *texto*
-ര ׄ 🌵˚ ${usedPrefix}setwelcome *texto*
-ര ׄ 🌵˚ ${usedPrefix}groupdesc *texto*
-ര ׄ 🌵˚ ${usedPrefix}setbye *texto*
-ര ׄ 🌵˚ ${usedPrefix}promote *@tag*
-ര ׄ 🌵˚ ${usedPrefix}demote *@tag*
-ര ׄ 🌵˚ ${usedPrefix}kick *@tag*
-ര ׄ 🌵˚ ${usedPrefix}mute *@tag*
-ര ׄ 🌵˚ ${usedPrefix}inactivos *opción*
-ര ׄ 🌵˚ ${usedPrefix}tagnum *prefix*
-ര ׄ 🌵˚ ${usedPrefix}link
-ര ׄ 🌵˚ ${usedPrefix}fantasmas
+↷✦; \`FUN\` ❞ 🥥︵᷼ 
+⠞🥥੭‎ ${usedPrefix}gay *@tag*
+⠞🥥੭‎ ${usedPrefix}lesbiana *@tag*
+⠞🥥੭‎ ${usedPrefix}pajero *@tag*
+⠞🥥੭‎ ${usedPrefix}pajera *@tag*
+⠞🥥੭‎ ${usedPrefix}puto *@tag*
+⠞🥥੭‎ ${usedPrefix}puta *@tag*
+⠞🥥੭‎ ${usedPrefix}manco *@tag*
+⠞🥥੭‎ ${usedPrefix}manca *@tag*
+⠞🥥੭‎ ${usedPrefix}rata *@tag*
+⠞🥥੭‎ ${usedPrefix}prostituto *@tag*
+⠞🥥੭‎ ${usedPrefix}prostituta *@tag*
+⠞🥥੭‎ ${usedPrefix}doxear *@tag*
+⠞🥥੭‎ ${usedPrefix}jalamela *@tag*
+⠞🥥੭‎ ${usedPrefix}simi *texto*
+⠞🥥੭‎ ${usedPrefix}pregunta *texto*
+⠞🥥੭‎ ${usedPrefix}genio *texto*
+⠞🥥੭‎ ${usedPrefix}top
+⠞🥥੭‎ ${usedPrefix}sorteo
+⠞🥥੭‎ ${usedPrefix}piropo
+⠞🥥੭‎ ${usedPrefix}chiste
+⠞🥥੭‎ ${usedPrefix}facto
+⠞🥥੭‎ ${usedPrefix}verdad
+⠞🥥੭‎ ${usedPrefix}pareja
+⠞🥥੭‎ ${usedPrefix}parejas
+⠞🥥੭‎ ${usedPrefix}love
+⠞🥥੭‎ ${usedPrefix}personalidad
 
-𓂂𓏸  𐅹੭੭   *\`ᥱ𝖿ᥱᥴ𝗍᥆s\`*   🪻ᩚ꤬ᰨᰍ
-ര ׄ 🪻˚ ${usedPrefix}bass *vid*
-ര ׄ 🪻˚ ${usedPrefix}blown *vid*
-ര ׄ 🪻˚ ${usedPrefix}deep *vid*
-ര ׄ 🪻˚ ${usedPrefix}earrape *vid*
-ര ׄ 🪻˚ ${usedPrefix}fast *vid*
-ര ׄ 🪻˚ ${usedPrefix}smooth *vid*
-ര ׄ 🪻˚ ${usedPrefix}tupai *vid*
-ര ׄ 🪻˚ ${usedPrefix}nightcore *vid*
-ര ׄ 🪻˚ ${usedPrefix}reverse *vid*
-ര ׄ 🪻˚ ${usedPrefix}robot *vid*
-ര ׄ 🪻˚ ${usedPrefix}slow *vid*
-ര ׄ 🪻˚ ${usedPrefix}squirrel *vid*
-ര ׄ 🪻˚ ${usedPrefix}chipmunk *vid*
-ര ׄ 🪻˚ ${usedPrefix}reverb *vid*
-ര ׄ 🪻˚ ${usedPrefix}chorus *vid*
-ര ׄ 🪻˚ ${usedPrefix}flanger *vid*
-ര ׄ 🪻˚ ${usedPrefix}distortion *vid*
-ര ׄ 🪻˚ ${usedPrefix}pitch *vid*
-ര ׄ 🪻˚ ${usedPrefix}highpass *vid*
-ര ׄ 🪻˚ ${usedPrefix}lowpass *vid*
-ര ׄ 🪻˚ ${usedPrefix}underwater *vid*
+↷✦; \`GAME\` ❞ 🎋︵᷼ 
+⠞🎋੭‎ ${usedPrefix}pregunta *texto*
+⠞🎋੭‎ ${usedPrefix}ttt *texto*
+⠞🎋੭‎ ${usedPrefix}ptt *opción*
+⠞🎋੭‎ ${usedPrefix}delttt
+⠞🎋੭‎ ${usedPrefix}acertijo
 
-𓂂𓏸  𐅹੭੭   *\`ძі᥎ᥱrsі᥆ᥒ\`*   🥯ᩚ꤬ᰨᰍ
-ര ׄ 🥯˚ ${usedPrefix}gay *@tag*
-ര ׄ 🥯˚ ${usedPrefix}lesbiana *@tag*
-ര ׄ 🥯˚ ${usedPrefix}pajero *@tag*
-ര ׄ 🥯˚ ${usedPrefix}pajera *@tag*
-ര ׄ 🥯˚ ${usedPrefix}puto *@tag*
-ര ׄ 🥯˚ ${usedPrefix}puta *@tag*
-ര ׄ 🥯˚ ${usedPrefix}manco *@tag*
-ര ׄ 🥯˚ ${usedPrefix}manca *@tag*
-ര ׄ 🥯˚ ${usedPrefix}rata *@tag*
-ര ׄ 🥯˚ ${usedPrefix}prostituto *@tag*
-ര ׄ 🥯˚ ${usedPrefix}prostituta *@tag*
-ര ׄ 🥯˚ ${usedPrefix}doxear *@tag*
-ര ׄ 🥯˚ ${usedPrefix}jalamela *@tag*
-ര ׄ 🥯˚ ${usedPrefix}simi *texto*
-ര ׄ 🥯˚ ${usedPrefix}pregunta *texto*
-ര ׄ 🥯˚ ${usedPrefix}genio *texto*
-ര ׄ 🥯˚ ${usedPrefix}top
-ര ׄ 🥯˚ ${usedPrefix}sorteo
-ര ׄ 🥯˚ ${usedPrefix}piropo
-ര ׄ 🥯˚ ${usedPrefix}chiste
-ര ׄ 🥯˚ ${usedPrefix}facto
-ര ׄ 🥯˚ ${usedPrefix}verdad
-ര ׄ 🥯˚ ${usedPrefix}pareja
-ര ׄ 🥯˚ ${usedPrefix}parejas
-ര ׄ 🥯˚ ${usedPrefix}love
-ര ׄ 🥯˚ ${usedPrefix}personalidad
+↷✦; \`ANIME\` ❞ 🌾︵᷼ 
+⠞🌾੭‎ ${usedPrefix}messi
+⠞🌾੭‎ ${usedPrefix}cr7
 
-𓂂𓏸  𐅹੭੭   *\`ȷᥙᥱg᥆s\`*   🐚ᩚ꤬ᰨᰍ
-ര ׄ 🐚˚ ${usedPrefix}pregunta *texto*
-ര ׄ 🐚˚ ${usedPrefix}ttt *texto*
-ര ׄ 🐚˚ ${usedPrefix}ptt *opción*
-ര ׄ 🐚˚ ${usedPrefix}delttt
-ര ׄ 🐚˚ ${usedPrefix}acertijo
-ര ׄ 🐚˚ ${usedPrefix}trivia
+↷✦; \`GIFS NSFW\` ❞ 🔥︵᷼ 
+⠞🔥੭‎ ${usedPrefix}violar *@tag*
+⠞🔥੭‎ ${usedPrefix}follar *@tag*
+⠞🔥੭‎ ${usedPrefix}anal *@tag*
+⠞🔥੭‎ ${usedPrefix}coger *@tag*
+⠞🔥੭‎ ${usedPrefix}coger2 *@tag*
+⠞🔥੭‎ ${usedPrefix}penetrar *@tag*
+⠞🔥੭‎ ${usedPrefix}sexo *@tag*
+⠞🔥੭‎ ${usedPrefix}rusa *@tag*
+⠞🔥੭‎ ${usedPrefix}sixnine *@tag*
+⠞🔥੭‎ ${usedPrefix}pies *@tag*
+⠞🔥੭‎ ${usedPrefix}mamada *@tag*
+⠞🔥੭‎ ${usedPrefix}lickpussy *@tag*
+⠞🔥੭‎ ${usedPrefix}grabboobs *@tag*
+⠞🔥੭‎ ${usedPrefix}suckboobs *@tag*
+⠞🔥੭‎ ${usedPrefix}cum *@tag*
+⠞🔥੭‎ ${usedPrefix}fap *@tag*
+⠞🔥੭‎ ${usedPrefix}manosear *@tag*
+⠞🔥੭‎ ${usedPrefix}lesbianas *@tag*
 
-𓂂𓏸  𐅹੭੭   *\`ᥲᥒіmᥱ\`*   🐚ᩚ꤬ᰨᰍ
-ര ׄ 🏕️˚ ${usedPrefix}messi
+↷✦; \`STICKERS\` ❞ 🦋︵᷼ 
+⠞🦋੭‎ ${usedPrefix}sticker *img*
+⠞🦋੭‎ ${usedPrefix}sticker *vid*
+⠞🦋੭‎ ${usedPrefix}brat *texto*
+⠞🦋੭‎ ${usedPrefix}qc *texto*
+⠞🦋੭‎ ${usedPrefix}dado
 
-𓂂𓏸  𐅹੭੭   *\`gі𝖿s ᥒs𝖿ա\`*   🔥ᩚ꤬ᰨᰍ
-ര ׄ 🔥˚ ${usedPrefix}violar *@tag*
-ര ׄ 🔥˚ ${usedPrefix}follar *@tag*
-ര ׄ 🔥˚ ${usedPrefix}anal *@tag*
-ര ׄ 🔥˚ ${usedPrefix}coger *@tag*
-ര ׄ 🔥˚ ${usedPrefix}coger2 *@tag*
-ര ׄ 🔥˚ ${usedPrefix}penetrar *@tag*
-ര ׄ 🔥˚ ${usedPrefix}sexo *@tag*
-ര ׄ 🔥˚ ${usedPrefix}rusa *@tag*
-ര ׄ 🔥˚ ${usedPrefix}sixnine *@tag*
-ര ׄ 🔥˚ ${usedPrefix}pies *@tag*
-ര ׄ 🔥˚ ${usedPrefix}mamada *@tag*
-ര ׄ 🔥˚ ${usedPrefix}lickpussy *@tag*
-ര ׄ 🔥˚ ${usedPrefix}grabboobs *@tag*
-ര ׄ 🔥˚ ${usedPrefix}suckboobs *@tag*
-ര ׄ 🔥˚ ${usedPrefix}cum *@tag*
-ര ׄ 🔥˚ ${usedPrefix}fap *@tag*
-ര ׄ 🔥˚ ${usedPrefix}manosear *@tag*
-ര ׄ 🔥˚ ${usedPrefix}lesbianas *@tag*
+↷✦; \`RPG\` ❞ 💸︵᷼ 
+⠞💸੭‎ ${usedPrefix}minar
+⠞💸੭‎ ${usedPrefix}cofre
+⠞💸੭ ${usedPrefix}slut
+⠞💸੭ ${usedPrefix}nivel
+⠞💸੭ ${usedPrefix}ruleta
 
-𓂂𓏸  𐅹੭੭   *\`s𝗍іᥴkᥱrs\`*   🍦ᩚ꤬ᰨᰍ
-ര ׄ 🍦˚ ${usedPrefix}sticker *img*
-ര ׄ 🍦˚ ${usedPrefix}sticker *vid*
-ര ׄ 🍦˚ ${usedPrefix}brat *texto*
-ര ׄ 🍦˚ ${usedPrefix}qc *texto*
-ര ׄ 🍦˚ ${usedPrefix}dado
+↷✦; \`REGISTRO\` ❞ ☁️︵᷼ 
+⠞☁️੭ ${usedPrefix}perfil
+⠞☁️੭ ${usedPrefix}reg
+⠞☁️੭ ${usedPrefix}unreg
 
-𓂂𓏸  𐅹੭੭   *\`r⍴g\`*   💸ᩚ꤬ᰨᰍ
-ര ׄ 💸˚ ${usedPrefix}minar
-ര ׄ 💸˚ ${usedPrefix}cofre
-ര ׄ 💸˚ ${usedPrefix}slut
-ര ׄ 💸˚ ${usedPrefix}nivel
-ര ׄ 💸˚ ${usedPrefix}ruleta
+↷✦; \`OWNER\` ❞ 👑︵᷼ 
+⠞👑੭ ${usedPrefix}salir
+⠞👑੭ ${usedPrefix}update
+⠞👑੭ ${usedPrefix}blocklist
+⠞👑੭ ${usedPrefix}grouplist
+⠞👑੭ ${usedPrefix}restart
+⠞👑੭ ${usedPrefix}join
+⠞👑੭ ${usedPrefix}chetar
+⠞👑੭ ${usedPrefix}unbanuser`.trim();
 
-𓂂𓏸  𐅹੭੭   *\`rᥱgіs𝗍r᥆\`*   🎣ᩚ꤬ᰨᰍ
-ര ׄ 🎣˚ ${usedPrefix}perfil
-ര ׄ 🎣˚ ${usedPrefix}reg
-ര ׄ 🎣˚ ${usedPrefix}unreg
+    conn.sendMessage(m.chat, {
+      text: text,
+      contextInfo: {
+        mentionedJid: conn.parseMention(text),
+        isForwarded: true,
+        forwardingScore: 999,
+        externalAdReply: {
+          title: '',
+          body: 'Pantheon Bot',
+          thumbnail: await (await fetch(img)).buffer(),
+          sourceUrl: insta,
+          mediaType: 1,
+          renderLargerThumbnail: true
+        }
+      }
+    }, { quoted: fkontak });
 
-𓂂𓏸  𐅹੭੭   *\`᥆աᥒᥱr\`*   🍀ᩚ꤬ᰨᰍ
-ര ׄ 🍀˚ ${usedPrefix}salir
-ര ׄ 🍀˚ ${usedPrefix}update
-ര ׄ 🍀˚ ${usedPrefix}blocklist
-ര ׄ 🍀˚ ${usedPrefix}grouplist
-ര ׄ 🍀˚ ${usedPrefix}restart
-ര ׄ 🍀˚ ${usedPrefix}join
-ര ׄ 🍀˚ ${usedPrefix}chetar
-ര ׄ 🍀˚ ${usedPrefix}unbanuser
-`.trim()
+  } catch (e) {
+    conn.reply(m.chat, '❎ Error en el comando. Inténtalo más tarde.', m);
+  }
+};
 
-        await conn.sendMessage(m.chat, {
-            image: { url: perfil }, // Enviando solo la imagen fija
-            caption: menu,
-            contextInfo: {
-                mentionedJid: [m.sender],
-                isForwarded: true,
-                forwardingScore: 999,
-                externalAdReply: {
-                    title: '*PANTHEON BOT* 💫',
-                    thumbnailUrl: perfil,
-                    mediaType: 1,
-                    renderLargerThumbnail: false,
-                },
-            },
-        }, { quoted: null })
-    } catch (e) {
-        await m.reply(`*[ ℹ️ ] Ocurrió un error al enviar el menú.*\n\n${e}`)
-    }
-}
-
-handler.help = ['menuff'];
-handler.tags = ['main'];
 handler.command = /^(menu|menú|memu|memú|help|info|comandos|2help|menu1.2|ayuda|commands|commandos|cmd)$/i;
 handler.fail = null;
 
@@ -327,8 +293,8 @@ export default handler;
 const more = String.fromCharCode(8206)
 const readMore = more.repeat(4001)
 function clockString(ms) {
-    let h = isNaN(ms) ? '--' : Math.floor(ms / 3600000)
-    let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
-    let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
-    return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')
+  const h = isNaN(ms) ? '--' : Math.floor(ms / 3600000);
+  const m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60;
+  const s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60;
+  return [h, m, s].map((v) => v.toString().padStart(2, 0)).join(':');
 }
