@@ -23,8 +23,10 @@ const handler = async (m, { text, conn, args, usedPrefix, command }) => {
     }
 
     let [hora, minutos] = args[0].split(':').map(Number);
-    if (ampm === 'PM' && hora !== 12) hora += 12;
-    if (ampm === 'AM' && hora === 12) hora = 0;  
+
+// Si AM/PM está definido, ajusta solo su valor sin redeclarar la variable
+if (ampm === 'PM' && hora !== 12) hora += 12;
+if (ampm === 'AM' && hora === 12) hora = 0;  
 
     let [hora, minutos] = args[0].includes(':') ? args[0].split(':').map(Number) : [Number(args[0]), 0];
 
