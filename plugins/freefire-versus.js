@@ -121,7 +121,10 @@ ${iconos.map(icono => `${icono}˚ `).join('\n')}
 
 ㅤ \`Sᥙ⍴ᥣᥱᥒ𝗍ᥱs:\`
 
-${iconos2.map(icono => `${icono}˚ `).join('\n')}`.trim();
+${iconos2.map(icono => `${icono}˚ `).join('\n')}
+
+ㅤ \`𝗢𝗥𝗚𝗔𝗡𝗜𝗭𝗔𝗗𝗢𝗥:\`
+@${m.sender.split('@')[0]}`.trim();
 
     conn.sendMessage(m.chat, { text: message }, { quoted: m });
 };
