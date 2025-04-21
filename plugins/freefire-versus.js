@@ -67,52 +67,52 @@ const handler = async (m, { text, conn, args, usedPrefix, command }) => {
     let iconos2 = [];  
 
     switch (command) {  
-        case 'v4fem':  
-        case 'vsfem4':  
-            titulo = '4VS4 FEM';  
-            players = 'Jugadoras:';  
-            iconos = ['🌸', '🌸', '🌸', '🌸'];  
-            iconos2 = ['🌸', '🌸'];  
-            break;  
-        case 'v4masc':  
-        case 'vsmasc4':  
-            titulo = '4VS4 MASC';  
-            players = 'Jugadores:';  
-            iconos = ['🥥', '🥥', '🥥', '🥥'];  
-            iconos2 = ['🥥', '🥥'];  
-            break;  
-        case 'v4mixto':  
-        case 'vsmixto4':  
-            titulo = '4VS4 MIXTO';  
-            players = 'Jugadores:';  
-            iconos = ['🍁', '🍁', '🍁', '🍁'];  
-            iconos2 = ['🍁', '🍁'];  
-            break;  
-        case 'v6fem':  
-        case 'vsfem6':  
-            titulo = '6VS6 FEM';  
-            players = 'Jugadoras:';  
-            iconos = ['🦋', '🦋', '🦋', '🦋', '🦋', '🦋'];  
-            iconos2 = ['🦋', '🦋'];  
-            break;  
-        case 'v6masc':  
-        case 'vsmasc6':  
-            titulo = '6VS6 MASC';  
-            players = 'Jugadores:';  
-            iconos = ['🥞', '🥞', '🥞', '🥞', '🥞', '🥞'];  
-            iconos2 = ['🥞', '🥞'];  
-            break;  
-        case 'v6mixto':  
-        case 'vsmixto6':  
-            titulo = '6VS6 MIXTO';  
-            players = 'Jugadores:';  
-            iconos = ['🥯', '🥯', '🥯', '🥯', '🥯', '🥯'];  
-            iconos2 = ['🥯', '🥯'];  
-            break;  
-        default:  
-            conn.reply(m.chat, '*[ ❌ ] Comando no válido.*', m);  
-            return;  
-    }  
+    case 'v4fem':  
+    case 'vsfem4':  
+        titulo = '4VS4 FEM';  
+        players = 'Jugadoras:';  
+        iconos = ['🌸', '🌸', '🌸', '🌸'];  
+        iconos2 = ['🦋', '🦋']; // Mariposas rosas para un toque más elegante  
+        break;  
+    case 'v4masc':  
+    case 'vsmasc4':  
+        titulo = '4VS4 MASC';  
+        players = 'Jugadores:';  
+        iconos = ['🥥', '🥥', '🥥', '🥥'];  
+        iconos2 = ['💪', '💪']; // Fuerza y masculinidad  
+        break;  
+    case 'v4mixto':  
+    case 'vsmixto4':  
+        titulo = '4VS4 MIXTO';  
+        players = 'Jugadores:';  
+        iconos = ['🍁', '🍁', '🍁', '🍁'];  
+        iconos2 = ['🔄', '🔄']; // Representando integración y equilibrio  
+        break;  
+    case 'v6fem':  
+    case 'vsfem6':  
+        titulo = '6VS6 FEM';  
+        players = 'Jugadoras:';  
+        iconos = ['🦋', '🦋', '🦋', '🦋', '🦋', '🦋'];  
+        iconos2 = ['💖', '💖']; // Brillo y elegancia femenina  
+        break;  
+    case 'v6masc':  
+    case 'vsmasc6':  
+        titulo = '6VS6 MASC';  
+        players = 'Jugadores:';  
+        iconos = ['🥞', '🥞', '🥞', '🥞', '🥞', '🥞'];  
+        iconos2 = ['🔥', '🔥']; // Intensidad y competición  
+        break;  
+    case 'v6mixto':  
+    case 'vsmixto6':  
+        titulo = '6VS6 MIXTO';  
+        players = 'Jugadores:';  
+        iconos = ['🥯', '🥯', '🥯', '🥯', '🥯', '🥯'];  
+        iconos2 = ['🌍', '🌍']; // Unión y diversidad  
+        break;  
+    default:  
+        conn.reply(m.chat, '*[ ❌ ] Comando no válido.*', m);  
+        return;  
+}  
 
     const message = `ㅤㅤㅤ *\`${titulo}\`*  
 
