@@ -126,7 +126,7 @@ ${iconos2.map(icono => `${icono}˚ `).join('\n')}
 ㅤ \`𝗢𝗥𝗚𝗔𝗡𝗜𝗭𝗔𝗗𝗢𝗥:\`
 @${m.sender.split('@')[0]}`.trim();
 
-    conn.sendMessage(m.chat, { text: message }, { quoted: m });
+conn.sendMessage(m.chat, { text: message, mentions: [m.sender] }, { quoted: m });
 };
 
 handler.help = ['inmixto4', 'inmixto6', 'inmasc4', 'inmasc6', 'infem4', 'infem6'];
