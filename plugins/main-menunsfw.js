@@ -16,18 +16,18 @@ Bɪᴇɴᴠᴇɴɪᴅᴏ ᴀʟ ᴍᴇɴᴜ *ɴsғᴡ* 🔞
 
 \`\`\`${fechaHora}\`\`\`
 
-𓂂𓏸  𐅹੭੭   *\`ᑲᥙsᥴᥲძ᥆rᥱs\`* 🪱 ᦡᦡ
+𓂂𓏸  𐅹੭੭   *\`SEARCH\`* 🪱 ᦡᦡ
 ര ׄ⃟🪱˚ .xnxxsearch *texto*
 ര ׄ⃟🪱˚ .xvsearch *texto*
 ര ׄ⃟🪱˚ .phsearch *texto*
 ര ׄ⃟🪱˚ .r34 *texto*
 
-𓂂𓏸  𐅹੭੭   *\`ძᥱsᥴᥲrgᥲs\`* 🧋ᦡᦡ
+𓂂𓏸  𐅹੭੭   *\`DOWNLOAD\`* 🧋ᦡᦡ
 ര ׄ⃟🧋˚ .xnxxdl *ulr*
 ര ׄ⃟🧋˚ .xvdl *url*
 ര ׄ⃟🧋˚ .phdl *url*
 
-𓂂𓏸  𐅹੭੭   *\`gі𝖿s\`* 🦪 ᦡᦡ
+𓂂𓏸  𐅹੭੭   *\`GIFS\`* 🦪 ᦡᦡ
 ര ׄ⃟🦪˚ .follar *@tag*
 ര ׄ⃟🦪˚ .coger *@tag*
 ര ׄ⃟🦪˚ .coger2 *@tag*
@@ -47,7 +47,7 @@ Bɪᴇɴᴠᴇɴɪᴅᴏ ᴀʟ ᴍᴇɴᴜ *ɴsғᴡ* 🔞
 ര ׄ⃟🦪˚ .manosear *@tag*
 ര ׄ⃟🦪˚ .lesbianas *@tag*
 
-𓂂𓏸  𐅹੭੭   *\`ᥴ᥆ᥒ𝗍ᥱᥒіძ᥆\`* 🍒 ᦡᦡ
+𓂂𓏸  𐅹੭੭   *\`CONTENIDO\`* 🍒 ᦡᦡ
 ര ׄ⃟🍒˚ .pack
 ര ׄ⃟🍒˚ .pack2
 ര ׄ⃟🍒˚ .pack3
