@@ -82,9 +82,10 @@ Bɪᴇɴᴠᴇɴɪᴅᴏ ᴀʟ ᴍᴇɴᴜ *ɴsғᴡ* 🔞
 
 await conn.sendMessage(m.chat, { react: { text: '🔥', key: m.key } });
 
-  } catch {
-    conn.reply(m.chat,'*[ ℹ️ ] Error al enviar el menú.*\n\n> ${e}', m);
-  }
+    } catch (e) {
+    conn.reply(m.chat, `*[ ℹ️ ] Error al enviar el menú.*\n\n> ${e}`, m);
+    console.error(e); // Esto imprimirá el error en la consola para mayor diagnóstico
+}
 };
 
 handler.help = ['menunsfw']
