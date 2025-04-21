@@ -1,32 +1,34 @@
-/*MEJORADO POR CRISS
-github.com/CrxstianEscobar
-Shadow Code*/
+/* MEJORADO POR CRISS  
+github.com/CrxstianEscobar  
+Shadow Code */  
 
-let handler = async (m, { conn, text, args, usedPrefix, command }) => {
+let handler = async (m, { conn, text, args, usedPrefix, command }) => {  
+    // Verificar que se haya ingresado texto  
+    if (!args[0]) {  
+        conn.reply(m.chat, `*[ ℹ️ ] Ingrese un texto para iniciar la encuesta.*\n\n*[ 💡 ] Ejemplo:*\n${usedPrefix + command} *pregunta|opcion1|opcion2*`, m);  
+        return;  
+    }  
 
-    if (!args[0]) {
-        conn.reply(m.chat, `*[ ℹ️ ] Ingrese un texto para iniciar la encuesta.*\n\n*[ 💡 ] Ejemplo:*\n${usedPrefix + command} *texto|texto2*`, m);
-        return;
-    }
+    // Separar la pregunta de las opciones usando el primer `|`  
+    const partes = text.split('|');  
+    
+    // La pregunta es el primer elemento y las opciones son el resto  
+    const pregunta = partes[0].trim();  
+    const opciones = partes.slice(1).map(opcion => [opcion.trim()]); // Eliminar espacios en las opciones  
 
-    if (!text.includes('|')) {
-        conn.reply(m.chat, `*[ ⚠️ ] Separe las opciones de la encuesta con \`|\`*\n\n*[ 💡 ] Ejemplo:*\n${usedPrefix + command} *texto|texto2*`, m);
-        return;
-    }
+    // Validar que haya al menos dos opciones  
+    if (opciones.length < 1) {  
+        conn.reply(m.chat, `*[ ⚠️️ ] Debe haber al menos una opción en la encuesta.*`, m);  
+        return;  
+    }  
 
-    let opciones = [...new Set(text.split('|'))].map(opcion => [opcion]); // Elimina duplicados
+    // Enviar la encuesta  
+    return conn.sendPoll(m.chat, `*📊 Encuesta:* ${pregunta}`, opciones, m);  
+};  
 
-    if (opciones.length < 2) {
-        conn.reply(m.chat, `*[ ⚠️️ ] Debe haber al menos dos opciones diferentes en la encuesta.*`, m);
-        return;
-    }
+handler.help = ['encuesta *<pregunta|opcion1|opcion2>*'];  
+handler.tags = ['gc'];  
+handler.command = ['poll', 'encuesta'];  
+handler.group = true;  
 
-    return conn.sendPoll(m.chat, `*📊 Encuesta:*`, opciones, m);
-};
-
-handler.help = ['encuesta *<texto|texto2>*'];
-handler.tags = ['gc'];
-handler.command = ['poll', 'encuesta'];
-handler.group = true;
-
-export default handler;
+export default handler;  
